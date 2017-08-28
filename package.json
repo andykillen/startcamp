@@ -1,0 +1,25 @@
+
+  "name": "basic-gulpfile",
+  "title": "StartCamp gulp file settings",
+  "homepage": "https://github.com/andykillen/startcamp",
+  "version": "0.1",
+  "author": {
+    "name": "Andrew Killen",
+    "url": "https://github.com/andykillen",
+    "twitter": "@clearlyapirate"
+  },
+  "licenses": [
+    {
+      "type": "GPL",
+      "url": "https://www.gnu.org/licenses/gpl-3.0.en.html"
+    }
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-sass": "^3.1.0",
+    "gulp-clean-css": "^3.7.0",
+    "gulp-uglify": "^3.0.0",
+    "gulp-watch": "^4.3.11"
+  }
+}
