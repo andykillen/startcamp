@@ -29,8 +29,9 @@ class StartCamp_Autoloader {
         if (0 !== strpos($class, 'StartCamp')) {
             return;
         }
+        
  
-        if (is_file($file = dirname(__FILE__).'/'.$class.'.php')) {
+        if (is_file($file = dirname(__FILE__).'/'.$class.'.php')) {            
             require_once $file;
         }
     }
