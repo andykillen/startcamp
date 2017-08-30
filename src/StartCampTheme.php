@@ -27,193 +27,21 @@ class StartCampTheme extends StartCampBase {
     }
     
     public function registerTaxonomies(){
-        
-        // Add new taxonomy
         // person type
-	$labels = array(
-            'name'              => _x( 'Person Types', 'taxonomy general name', "startcamp" ),
-            'singular_name'     => _x( 'Person Type', 'taxonomy singular name', "startcamp" ),
-            'search_items'      => __( 'Search Person Types', "startcamp" ),
-            'all_items'         => __( 'All Person Types', "startcamp" ),
-            'parent_item'       => __( 'Parent Person Type', "startcamp" ),
-            'parent_item_colon' => __( 'Parent Person Type:', "startcamp" ),
-            'edit_item'         => __( 'Edit Person Type', "startcamp" ),
-            'update_item'       => __( 'Update Person Type', "startcamp" ),
-            'add_new_item'      => __( 'Add New Person Type', "startcamp" ),
-            'new_item_name'     => __( 'New Person Type Name', "startcamp" ),
-            'menu_name'         => __( 'Person Type', "startcamp" ),
-	);
-
-	$args = array(
-            'hierarchical'      => true,
-            'labels'            => $labels,
-            'show_ui'           => true,
-            'show_admin_column' => true,
-            'query_var'         => true,
-            'rewrite'           => array( 'slug' => __('person-type','startcamp') ),
-	);
-
-	register_taxonomy( 'person-type', array( 'people' ), $args );
-
+	include get_template_directory() . '/register/taxonomies/person.php';
         // talk type
-        $labels = array(
-            'name'              => _x( 'Talk Types', 'taxonomy general name', "startcamp" ),
-            'singular_name'     => _x( 'Talk Type', 'taxonomy singular name', "startcamp" ),
-            'search_items'      => __( 'Search Talk Types', "startcamp" ),
-            'all_items'         => __( 'All Talk Types', "startcamp" ),
-            'parent_item'       => __( 'Parent Talk Type', "startcamp" ),
-            'parent_item_colon' => __( 'Parent Talk Type:', "startcamp" ),
-            'edit_item'         => __( 'Edit Talk Type', "startcamp" ),
-            'update_item'       => __( 'Update Talk Type', "startcamp" ),
-            'add_new_item'      => __( 'Add New Talk Type', "startcamp" ),
-            'new_item_name'     => __( 'New Talk Type Name', "startcamp" ),
-            'menu_name'         => __( 'Talk Type', "startcamp" ),
-	);
-
-	$args = array(
-            'hierarchical'      => true,
-            'labels'            => $labels,
-            'show_ui'           => true,
-            'show_admin_column' => true,
-            'query_var'         => true,
-            'rewrite'           => array( 'slug' => __('talk-type','startcamp') ),
-	);
-
-	register_taxonomy( 'talk-type', array( 'talk' ), $args );
-        
+        include get_template_directory() . '/register/taxonomies/talk-type.php';
         // Target Audience
-        $labels = array(
-            'name'              => _x( 'Audiences', 'taxonomy general name', "startcamp" ),
-            'singular_name'     => _x( 'Audience', 'taxonomy singular name', "startcamp" ),
-            'search_items'      => __( 'Search Audiences', "startcamp" ),
-            'all_items'         => __( 'All Audiences', "startcamp" ),
-            'parent_item'       => __( 'Parent Audience', "startcamp" ),
-            'parent_item_colon' => __( 'Parent Audience:', "startcamp" ),
-            'edit_item'         => __( 'Edit Audience', "startcamp" ),
-            'update_item'       => __( 'Update Audience', "startcamp" ),
-            'add_new_item'      => __( 'Add New Audience', "startcamp" ),
-            'new_item_name'     => __( 'New Audience Name', "startcamp" ),
-            'menu_name'         => __( 'Audience', "startcamp" ),
-	);
-
-	$args = array(
-            'hierarchical'      => true,
-            'labels'            => $labels,
-            'show_ui'           => true,
-            'show_admin_column' => true,
-            'query_var'         => true,
-            'rewrite'           => array( 'slug' => __('audience','startcamp') ),
-	);
-
-	register_taxonomy( 'audience', array( 'talk' ), $args );
+        include get_template_directory() . '/register/taxonomies/audience.php';
     }
 
     public function registerPostTypes(){
-        // venues
-        $labels = array(
-            'name'               => _x( 'Venues', 'post type general name', 'startcamp' ),
-            'singular_name'      => _x( 'Venue', 'post type singular name', 'startcamp' ),
-            'menu_name'          => _x( 'Venues', 'admin menu', 'startcamp' ),
-            'name_admin_bar'     => _x( 'Venue', 'add new on admin bar', 'startcamp' ),
-            'add_new'            => _x( 'Add New', 'item', 'startcamp' ),
-            'add_new_item'       => __( 'Add New Venue', 'startcamp' ),
-            'new_item'           => __( 'New Venue', 'startcamp' ),
-            'edit_item'          => __( 'Edit Venue', 'startcamp' ),
-            'view_item'          => __( 'View Venue', 'startcamp' ),
-            'all_items'          => __( 'All Venues', 'startcamp' ),
-            'search_items'       => __( 'Search Venues', 'startcamp' ),
-            'parent_item_colon'  => __( 'Parent Venues:', 'startcamp' ),
-            'not_found'          => __( 'No items found.', 'startcamp' ),
-            'not_found_in_trash' => __( 'No items found in Trash.', 'startcamp' ),
-	);
-
-	$args = array(
-            'labels'             => $labels,
-            'description'        => __( 'Description.', 'startcamp' ),
-            'public'             => true,
-            'publicly_queryable' => true,
-            'show_ui'            => true,
-            'show_in_menu'       => true,
-            'query_var'          => true,
-            'rewrite'            => array( 'slug' => __('venues','startcamp') ),
-            'capability_type'    => 'post',
-            'has_archive'        => true,
-            'hierarchical'       => false,
-            'menu_position'      => null,
-            'supports'           => array( 'title', 'editor', 'thumbnail', 'excerpt'),
-	);
-
-	register_post_type( 'venues', $args );
-        // people
-         $labels = array(
-            'name'               => _x( 'Peoples', 'post type general name', 'startcamp' ),
-            'singular_name'      => _x( 'People', 'post type singular name', 'startcamp' ),
-            'menu_name'          => _x( 'Peoples', 'admin menu', 'startcamp' ),
-            'name_admin_bar'     => _x( 'People', 'add new on admin bar', 'startcamp' ),
-            'add_new'            => _x( 'Add New', 'item', 'startcamp' ),
-            'add_new_item'       => __( 'Add New People', 'startcamp' ),
-            'new_item'           => __( 'New People', 'startcamp' ),
-            'edit_item'          => __( 'Edit People', 'startcamp' ),
-            'view_item'          => __( 'View People', 'startcamp' ),
-            'all_items'          => __( 'All Peoples', 'startcamp' ),
-            'search_items'       => __( 'Search Peoples', 'startcamp' ),
-            'parent_item_colon'  => __( 'Parent Peoples:', 'startcamp' ),
-            'not_found'          => __( 'No items found.', 'startcamp' ),
-            'not_found_in_trash' => __( 'No items found in Trash.', 'startcamp' ),
-	);
-
-	$args = array(
-            'labels'             => $labels,
-            'description'        => __( 'Description.', 'startcamp' ),
-            'public'             => true,
-            'publicly_queryable' => true,
-            'show_ui'            => true,
-            'show_in_menu'       => true,
-            'query_var'          => true,
-            'rewrite'            => array( 'slug' => __('people','startcamp') ),
-            'capability_type'    => 'post',
-            'has_archive'        => true,
-            'hierarchical'       => false,
-            'menu_position'      => null,
-            'supports'           => array( 'title', 'editor', 'thumbnail', 'excerpt'),
-	);
-
-	register_post_type( 'people', $args );
-        // talks
-         $labels = array(
-            'name'               => _x( 'Talks', 'post type general name', 'startcamp' ),
-            'singular_name'      => _x( 'Talk', 'post type singular name', 'startcamp' ),
-            'menu_name'          => _x( 'Talks', 'admin menu', 'startcamp' ),
-            'name_admin_bar'     => _x( 'Talk', 'add new on admin bar', 'startcamp' ),
-            'add_new'            => _x( 'Add New', 'item', 'startcamp' ),
-            'add_new_item'       => __( 'Add New Talk', 'startcamp' ),
-            'new_item'           => __( 'New Talk', 'startcamp' ),
-            'edit_item'          => __( 'Edit Talk', 'startcamp' ),
-            'view_item'          => __( 'View Talk', 'startcamp' ),
-            'all_items'          => __( 'All Talks', 'startcamp' ),
-            'search_items'       => __( 'Search Talks', 'startcamp' ),
-            'parent_item_colon'  => __( 'Parent Talks:', 'startcamp' ),
-            'not_found'          => __( 'No items found.', 'startcamp' ),
-            'not_found_in_trash' => __( 'No items found in Trash.', 'startcamp' ),
-	);
-
-	$args = array(
-            'labels'             => $labels,
-            'description'        => __( 'Description.', 'startcamp' ),
-            'public'             => true,
-            'publicly_queryable' => true,
-            'show_ui'            => true,
-            'show_in_menu'       => true,
-            'query_var'          => true,
-            'rewrite'            => array( 'slug' => __('talks','startcamp') ),
-            'capability_type'    => 'post',
-            'has_archive'        => true,
-            'hierarchical'       => false,
-            'menu_position'      => null,
-            'supports'           => array( 'title', 'editor', 'thumbnail', 'excerpt'),
-	);
-
-	register_post_type( 'talks', $args );
+        // Venue information
+        include get_template_directory() . '/register/posttypes/venues.php';
+        // People who are Speaking, Organizing or Sponsoring
+        include get_template_directory() . '/register/posttypes/people.php';
+        // Talks 
+        include get_template_directory() . '/register/posttypes/talks.php';
     }
 
     /**
@@ -246,7 +74,10 @@ class StartCampTheme extends StartCampBase {
         // Speaker
     }
 
-   
+    /**
+    * Add Favicons to the head section.  Uses stylesheet directory so 
+     * it can be replaced with ones from the child theme.
+    */
     function addFavicons(){
     ?><link rel="icon" type="image/x-icon" href="<?php echo get_stylesheet_directory_uri(); ?>/images/favicons/favicon.ico" /><?php
     foreach([228,152,120,114,96,72,64] as $num) { ?>    
@@ -261,30 +92,15 @@ class StartCampTheme extends StartCampBase {
         // add baisc Taxonomy info
         if (file_exists (ABSPATH.'/wp-admin/includes/taxonomy.php')) {
             require_once (ABSPATH.'/wp-admin/includes/taxonomy.php'); 
-            
-            // add standard categories (with localized names) to system
-            $array_of_tax_terms = array(
-                'audience' => [__("Beginner", "startcamp")      => array( 'desctiption' =>'', 'nicename' => 'beginner', 'parent' =>'' )],
-                'audience' => [__("Intermediate", "startcamp")  => array( 'desctiption' =>'', 'nicename' => 'intermediate', 'parent' =>'' )],
-                'audience' => [ __("Advanced", "startcamp")     => array( 'desctiption' =>'', 'nicename' => 'advanced', 'parent' =>'' )],
-                'audience' => [ __("Coder", "startcamp")        => array( 'desctiption' =>'', 'nicename' => 'coder', 'parent' =>'' )],
-                'audience' => [ __("Marketeer", "startcamp")    => array( 'desctiption' =>'', 'nicename' => 'marketeer', 'parent' =>'' )],
-                'audience' => [ __("SEOer", "startcamp")        => array( 'desctiption' =>'', 'nicename' => 'seo', 'parent' =>'' )],
-                'audience' => [ __("Administrator", "startcamp")=> array( 'desctiption' =>'', 'nicename' => 'administrator', 'parent' =>'' )],
-                'audience' => [ __("Integrator", "startcamp")   => array( 'desctiption' =>'', 'nicename' => 'integrator', 'parent' =>'' )],
-                
-                'person-type' => [ __("Organizers", "startcamp")=> array( 'desctiption' =>'', 'nicename' => 'organizer', 'parent' =>'' )],
-                'person-type' => [ __("Sponsor", "startcamp")   => array( 'desctiption' =>'', 'nicename' => 'sponsor', 'parent' =>'' )],
-                'person-type' => [ __("Speaker", "startcamp")   => array( 'desctiption' =>'', 'nicename' => 'speaker', 'parent' =>'' )],
-                
-                'talk-type' => [ __("Workshop", "startcamp")     => array( 'desctiption' =>'', 'nicename' => 'workshop', 'parent' =>'' )],
-                'talk-type' => [ __("Overview", "startcamp")     => array( 'desctiption' =>'', 'nicename' => 'overview', 'parent' =>'' )],
-                'talk-type' => [ __("Inspirational", "startcamp")=> array( 'desctiption' =>'', 'nicename' => 'inspirational', 'parent' =>'' )],
-            );
-            foreach ($array_of_tax_terms as $tax => $term_details){
-                wp_insert_term(array_key($term_details) , $tax, array_values($term_details) );
+            // Define option name.
+            $option = 'startcamp_first-activation';
+            // If option does not exist then load the first activation terms
+            if(false == get_option($option)){
+                // Add standard taxonomies terms (with localized names) to system
+                include get_template_directory() . '/register/terms/first-activation.php';
+                // Update the option so it is only shown on first load. 
+                update_option($option, true, false);
             }
-
         }
     }
 }
