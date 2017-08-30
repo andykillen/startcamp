@@ -29,7 +29,7 @@ add_action('admin_enqueue_scripts', 'startcamp_register_admin_scripts_styles');
 // Add front end theme scripts and styles.
 add_action('wp_enqueue_scripts', 'startcamp_register_frontend_scripts_styles');
 // Add Languages.
-add_action('after_setup_theme', 'loadLanguages');
+add_action('after_setup_theme', 'startcamp_load_languages');
 // Add Favicons to head.
 add_action("wp_head","startcamp_add_favicons");
 

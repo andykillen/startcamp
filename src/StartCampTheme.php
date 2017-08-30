@@ -4,7 +4,7 @@
  *
  * @author andrew
  */
-class StartCampTheme extends StartCampBase {
+class StartCampMetaBoxes extends StartCampBase {
     public function init(){
         
         
