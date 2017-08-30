@@ -13,4 +13,12 @@ get_header();
 
 $step = 2;
 
-template_get_part('partials/steps');
+include(locate_template('partials/steps.php'));
+
+
+// Create a new form based on the registered name 'step1'
+$form = new StartCampForms('step2'); 
+// render the form and echo it to the screen
+$form->renderForm();
+// end of form
+get_footer();

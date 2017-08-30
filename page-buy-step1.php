@@ -22,4 +22,4 @@ $form = new StartCampForms('step1');
 // render the form and echo it to the screen
 $form->renderForm();
 // end of form
-wp_footer();
+get_footer();

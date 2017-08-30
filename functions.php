@@ -16,3 +16,7 @@ foreach($include_forms as $name => $file) {
     include $file;
     $forms->register($name, $form);
 }
+
+// Setup the theme
+$theme = new StartCampTheme();
+$theme->init();
