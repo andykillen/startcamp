@@ -18,7 +18,6 @@ foreach($include_forms as $name => $file) {
 }
 
 // Setup the theme
-
 // Add post types needed for theme.
 add_action('init', 'startcamp_register_post_types', 10);
 // Add the taxonomies to the theme.
@@ -105,18 +104,18 @@ endif;
 */
 if(!function_exists('startcamp_setup_theme')):
     function startcamp_setup_theme(){
-       // add baisc Taxonomy info
-       if (file_exists (ABSPATH.'/wp-admin/includes/taxonomy.php')) {
-           require_once (ABSPATH.'/wp-admin/includes/taxonomy.php'); 
-           // Define option name.
-           $option = 'startcamp_first-activation';
-           // If option does not exist then load the first activation terms
-           if(false == get_option($option)){
-               // Add standard taxonomies terms (with localized names) to system
-               include get_template_directory() . '/register/terms/first-activation.php';
-               // Update the option so it is only shown on first load. 
-               update_option($option, true, false);
-           }
-       }
+        // add baisc Taxonomy info
+        if (file_exists (ABSPATH.'/wp-admin/includes/taxonomy.php')) {
+            require_once (ABSPATH.'/wp-admin/includes/taxonomy.php'); 
+            // Define option name.
+            $option = 'startcamp_first-activation';
+            // If option does not exist then load the first activation terms
+            if(false == get_option($option)){
+                // Add standard taxonomies terms (with localized names) to system
+                include get_template_directory() . '/register/terms/first-activation.php';
+                // Update the option so it is only shown on first load. 
+                update_option($option, true, false);
+            }
+        }
     }
 endif;
