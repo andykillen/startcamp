@@ -18,7 +18,7 @@ class StartCampBase {
      * @param string $file_path
      * @return bool or int
      */
-    function cache_bust($file_path){
+    static public function cache_bust($file_path){
         $bust = false;
         if(is_file($file = get_stylesheet_directory() . $file_path)){
             $bust =  filemtime( $file );
