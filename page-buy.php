@@ -1,23 +1,24 @@
 <?php
 /**
- * Template Name: Buy Ticket Step 2
+ * Template Name: Buy Tickets
  * @package WordPress
  * @subpackage startcamp
  * @author Andrew Killen
  * 
- * Personal information, such as t-shirt size
+ * Business and Contact info
  * 
  */
 
 get_header();
 
-$step = 2;
+$step = 1;
 
-include(locate_template('partials/steps.php'));
+include(locate_template('partials/steps.php')); ?>
 
-
+<h1><?php // the_title() ?></h1>
+<?php 
 // Create a new form based on the registered name 'step1'
-$form = new StartCampForms('step2'); 
+$form = new StartCampForms('step1'); 
 // render the form and echo it to the screen
 $form->renderForm();
 // end of form

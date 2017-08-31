@@ -1,17 +1,17 @@
 <?php
 
 $labels = array(
-    'name'              => _x( 'Talk Types', 'taxonomy general name', "startcamp" ),
-    'singular_name'     => _x( 'Talk Type', 'taxonomy singular name', "startcamp" ),
-    'search_items'      => __( 'Search Talk Types', "startcamp" ),
-    'all_items'         => __( 'All Talk Types', "startcamp" ),
-    'parent_item'       => __( 'Parent Talk Type', "startcamp" ),
-    'parent_item_colon' => __( 'Parent Talk Type:', "startcamp" ),
-    'edit_item'         => __( 'Edit Talk Type', "startcamp" ),
-    'update_item'       => __( 'Update Talk Type', "startcamp" ),
-    'add_new_item'      => __( 'Add New Talk Type', "startcamp" ),
-    'new_item_name'     => __( 'New Talk Type Name', "startcamp" ),
-    'menu_name'         => __( 'Talk Type', "startcamp" ),
+    'name'              => _x( 'Sponsor Types', 'taxonomy general name', "startcamp" ),
+    'singular_name'     => _x( 'Sponsor Type', 'taxonomy singular name', "startcamp" ),
+    'search_items'      => __( 'Search Sponsor Types', "startcamp" ),
+    'all_items'         => __( 'All Sponsor Types', "startcamp" ),
+    'parent_item'       => __( 'Parent Sponsor Type', "startcamp" ),
+    'parent_item_colon' => __( 'Parent Sponsor Type:', "startcamp" ),
+    'edit_item'         => __( 'Edit Sponsor Type', "startcamp" ),
+    'update_item'       => __( 'Update Sponsor Type', "startcamp" ),
+    'add_new_item'      => __( 'Add New Sponsor Type', "startcamp" ),
+    'new_item_name'     => __( 'New Sponsor Type Name', "startcamp" ),
+    'menu_name'         => __( 'Sponsor Type', "startcamp" ),
 );
 
 $args = array(
@@ -20,7 +20,7 @@ $args = array(
     'show_ui'           => true,
     'show_admin_column' => true,
     'query_var'         => true,
-    'rewrite'           => array( 'slug' => __('talk-type','startcamp') ),
+    'rewrite'           => array( 'slug' => __('sponsor-type','startcamp') ),
 );
 
-register_taxonomy( 'talk-type', array( 'talk' ), $args );
+register_taxonomy( 'sponsor-type', array( 'sponsors' ), $args );
