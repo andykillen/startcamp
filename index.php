@@ -1,8 +1,13 @@
 <?php
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+get_header();
 
+if ( have_posts() ) :
+    while ( have_posts() ) : the_post();
+        $posttype = '';
+        if(is_page() || is_feed()){
+            $posttype = get_post_type();
+        }
+        get_template_part('partials/loop', $posttype);
+    endwhile;
+endif;

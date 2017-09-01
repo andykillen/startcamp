@@ -11,12 +11,13 @@
 
 get_header();
 
-$step = 1;
+if ( have_posts() ) :
+    while ( have_posts() ) : the_post(); 
+    get_template_part('partials/loop');
+ endwhile;
+endif;
 
-include(locate_template('partials/steps.php')); ?>
 
-<h1><?php // the_title() ?></h1>
-<?php 
 // Create a new form based on the registered name 'step1'
 $form = new StartCampForms('step1'); 
 // render the form and echo it to the screen

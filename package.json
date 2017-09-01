@@ -1,8 +1,9 @@
 {
-  "name": "basic-gulpfile",
-  "title": "StartCamp gulp file settings",
+  "name": "startcamp-gulpfile-setup",
+  "title": "StartCamp gulp file setup",
   "homepage": "https://github.com/andykillen/startcamp",
-  "version": "0.1",
+  "version": "1.0.0",
+  "description" : "installs correct things for gulp task runner",
   "author": {
     "name": "Andrew Killen",
     "url": "https://github.com/andykillen",
@@ -14,12 +15,16 @@
       "url": "https://www.gnu.org/licenses/gpl-3.0.en.html"
     }
   ],
-  "dependencies": {},
-  "devDependencies": {
+  "main": "gulpfile.js",
+  "dependencies": {  
     "gulp": "^3.9.1",
     "gulp-sass": "^3.1.0",
     "gulp-clean-css": "^3.7.0",
     "gulp-uglify": "^3.0.0",
-    "gulp-watch": "^4.3.11"
-  }
+    "gulp-watch": "^4.3.11",
+    "gulp-rename":"*",
+    "gulp-concat":"*",
+    "pump":"*"
+  },
+  "devDependencies": {}
 }

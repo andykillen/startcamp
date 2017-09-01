@@ -1,3 +1,7 @@
 @import "partials/variables";
 @import "partials/mixins";
-@import "partials/normalize";
+@import "partials/frontend/normalize";
+@import "partials/frontend/typography";
+@import "partials/frontend/layout";
+@import "partials/frontend/links";
+@import "partials/frontend/wordpresscss";

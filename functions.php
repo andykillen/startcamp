@@ -59,6 +59,8 @@ if(!function_exists('startcamp_register_post_types')):
         include get_template_directory() . '/register/posttypes/people.php';
         // Talks 
         include get_template_directory() . '/register/posttypes/talks.php';
+        // Sponsors 
+        include get_template_directory() . '/register/posttypes/sponsors.php';
     }
 endif;
 // Add post types needed for theme.
@@ -70,11 +72,13 @@ add_action('init', 'startcamp_register_post_types', 10);
 if(!function_exists('startcamp_register_taxonomies')):
     function startcamp_register_taxonomies(){
         // person type
-        include get_template_directory() . '/register/taxonomies/person.php';
+        include get_template_directory() . '/register/taxonomies/person-type.php';
         // talk type
         include get_template_directory() . '/register/taxonomies/talk-type.php';
         // Target Audience
         include get_template_directory() . '/register/taxonomies/audience.php';
+        // Sponsor types
+        include get_template_directory() . '/register/taxonomies/sponsor-type.php';
     }
 endif;
 // Add the taxonomies to the theme.
@@ -85,7 +89,9 @@ add_action('init', 'startcamp_register_taxonomies', 0);
 */
 if(!function_exists('startcamp_register_frontend_scripts_styles')):
     function startcamp_register_frontend_scripts_styles(){
-       wp_enqueue_script( 'startcamp-theme', get_template_directory_uri()  . "/js/theme.min.js", array(), startcamp_cache_bust( "/js/theme.min.js" ) , true );
+       $type = (WP_DEBUG)? '.min' : '';
+       wp_enqueue_script( 'startcamp-theme', get_template_directory_uri()  . "/js/theme$type.js", array(), startcamp_cache_bust( "/js/theme$type.js" ) , true );
+       wp_enqueue_style( 'startcamp-theme', get_template_directory_uri()  . "/css/frontend$type.css", array(), startcamp_cache_bust( "/css/frontend$type.css" )  );
     }
 endif;
 // Add front end theme scripts and styles.
@@ -97,7 +103,9 @@ add_action('wp_enqueue_scripts', 'startcamp_register_frontend_scripts_styles');
 */
 if(!function_exists('startcamp_register_admin_scripts_styles')):
     function startcamp_register_admin_scripts_styles(){
-       wp_enqueue_script( 'startcamp-admin', get_template_directory_uri()  . "/js/theme-admin.min.js", false, startcamp_cache_bust( "/js/theme-admin.min.js" )  );
+       $type = (WP_DEBUG)? '.min' : '';
+       wp_enqueue_script( 'startcamp-admin', get_template_directory_uri()  . "/js/admin$type.js", false, startcamp_cache_bust( "/js/admin$type.js" )  );
+       wp_enqueue_style( 'startcamp-admin', get_template_directory_uri()  . "/css/admin$type.css", false, startcamp_cache_bust( "/css/admin$type.css" )  );
     }
 endif;
 // Add admin theme scripts and styles
@@ -179,18 +187,24 @@ endif;
 $custom = new StartCampCustomizer();
 $custom->init();  // nope, no __construct.
 
+
+if(!function_exists('startcamp_show_programme')) :
+    function startcamp_show_programme(){
+        echo "the programme here!";
+    }
+endif;
+
 /**
  * TODO:
- * 1. page formats
- * 2. html 5 support
+ * 1. page formats  // 50%
+ 
  * 3. images & responsive
- * 4. Sponsors post type
- * 5. Sponsor level taxonomy (radio)
- * 6. Share FB, Twitter, Linked in. 
+ 
+ * * 6. Share FB, Twitter, Linked in. 
  * 7. JSON LD 
  * 8. Finish the customizer
  * 9. Hero image
  * 10. forms
- * 11. blog layout
+ 
  * 12. Archive layout
  */
