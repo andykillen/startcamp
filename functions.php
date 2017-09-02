@@ -8,8 +8,7 @@ StartCamp_Autoloader::register();
 $forms = StartCampRegisterForms::get_instance();
 // Array of forms to register
 $include_forms = [
-  'step1' => 'forms/step1.php',
-  'step2' => 'forms/step2.php'
+  'buy' => 'forms/buy.php',  
 ];
 // load up the file and register the form as needed
 foreach($include_forms as $name => $file) {
@@ -34,6 +33,12 @@ function startcamp_theme_setup(){
     add_theme_support( 'automatic-feed-links' );
     add_theme_support( 'post-thumbnails' );
     set_post_thumbnail_size( 1200, 9999 );
+
+    add_image_size( 'hero', 1920, 1200, true );
+    add_image_size( 'page', 1280, 800, true );
+    add_image_size( 'tablet', 853, 533, true );
+    add_image_size( 'mobile', 568, 355, true );
+
     register_nav_menus( array(
         'primary' => __( 'Primary Menu', 'startcamp' ),
         'social'  => __( 'Social Links Menu', 'startcamp' ),
@@ -89,9 +94,12 @@ add_action('init', 'startcamp_register_taxonomies', 0);
 */
 if(!function_exists('startcamp_register_frontend_scripts_styles')):
     function startcamp_register_frontend_scripts_styles(){
-       $type = (WP_DEBUG)? '.min' : '';
-       wp_enqueue_script( 'startcamp-theme', get_template_directory_uri()  . "/js/theme$type.js", array(), startcamp_cache_bust( "/js/theme$type.js" ) , true );
-       wp_enqueue_style( 'startcamp-theme', get_template_directory_uri()  . "/css/frontend$type.css", array(), startcamp_cache_bust( "/css/frontend$type.css" )  );
+        $type = (WP_DEBUG)? '.min' : '';
+        wp_enqueue_script( 'startcamp-theme', get_template_directory_uri()  . "/js/theme$type.js", array(), startcamp_cache_bust( "/js/theme$type.js" ) , true );
+        wp_enqueue_style( 'startcamp-theme', get_template_directory_uri()  . "/css/frontend$type.css", array(), startcamp_cache_bust( "/css/frontend$type.css" )  );
+        if ( is_singular() && comments_open()) {
+            wp_enqueue_script( 'comment-reply' );
+        }
     }
 endif;
 // Add front end theme scripts and styles.
@@ -194,6 +202,49 @@ if(!function_exists('startcamp_show_programme')) :
     }
 endif;
 
+if(!function_exists('startcamp_currency_list')) :
+    function startcamp_currency_list() {
+        $currency = array_reverse(array('ZWD','ZMW','ZAR','YER','XPF','XOF','XDR','XCD','XAF',
+            'WST','VUV','VND','VEF','UZS','UYU','USD','UGX','UAH','TZS','TWD','TVD',
+            'TTD','TRY','TOP','TND','TMT','TJS','THB','SZL','SYP','SVC','STD','SRD',
+            'SOS','SLL','SHP','SGD','SEK','SDG','SCR','SBD','SAR','RWF','RUB','RSD',
+            'RON','QAR','PYG','PLN','PKR','PHP','PGK','PEN','PAB','OMR','NZD','NPR',
+            'NOK','NIO','NGN','NAD','MZN','MYR','MXN','MWK','MVR','MUR','MRO','MOP',
+            'MNT','MMK','MKD','MGA','MDL','MAD','LYD','LSL','LRD','LKR','LBP','LAK',
+            'KZT','KYD','KWD','KRW','KPW','KMF','KHR','KGS','KES','JPY','JOD','JMD',
+            'JEP','ISK','IRR','IQD','INR','IMP','ILS','IDR','HUF','HTG','HRK','HNL',
+            'HKD','GYD','GTQ','GNF','GMD','GIP','GHS','GGP','GEL','GBP','FKP','FJD',
+            'EUR','ETB','ERN','EGP','DZD','DOP','DKK','DJF','CZK','CVE','CUP','CUC',
+            'CRC','COP','CNY','CLP','CHF','CDF','CAD','BZD','BYN','BWP','BTN','BSD',
+            'BRL','BOB','BND','BMD','BIF','BHD','BGN','BDT','BBD','BAM','AZN','AWG',
+            'AUD','ARS','AOA','ANG','AMD','ALL','AFN','AED'));
+        
+        return array_combine($currency, $currency);
+    }
+endif;
+
+if(!function_exists('startcamp_share_urls')) :
+    function startcamp_share_urls($wantedUrls){
+        $allShareUrls = array(
+            'facebook' => "http://www.facebook.com/sharer.php?u=%URI%&amp;t=%TITLE%",
+            'googleplus' => "https://plusone.google.com/_/+1/confirm?hl=en&amp;url=%URI%&amp;title=%TITLE%",
+            'twitter' => "http://twitter.com/share?url=%URI%&amp;text=%TITLE%",
+            'whatsapp' => "whatsapp://send?text=%TITLE% %URI%",
+            'viber' => "viber://forward?text=%TITLE% %URI%",
+            "pinterest" => 'http://pinterest.com/pin/create/button/?url=%URI%&media=%IMAGE%&description=%TITLE%',
+            "linkedin" => 'http://www.linkedin.com/shareArticle?mini=true&url=%URI%&title=%TITLE%',
+            "qqzone"=> "http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=%URI%&summary=%TITLE%",
+            "tencent" => "http://share.v.t.qq.com/index.php?c=share&a=index&title=%TITLE%&url=%URI%",
+            "163" =>"http://t.163.com/article/user/checkLogin.do?source=%E7%BD%91%E6%98%93%E5%BE%AE%E5%8D%9A&info=%TITLE%%20%URI%",
+            "baidu" => "http://apps.hi.baidu.com/share/?url=%URI%&title=%TITLE%&content=",
+            "weibo" => "http://v.t.sina.com.cn/share/share.php?title=%TITLE%&url=%URI%",
+            "douban" => "http://www.douban.com/recommend/?url=%URI%&title=%TITLE%&sel=&v=1",
+            "kaixin" => "http://www.kaixin001.com/repaste/share.php?rtitle=%TITLE%&rcontent=&rurl=%URI%",
+            "renren" => "http://share.renren.com/share/buttonshare.do?link=%TITLE%&title=%TITLE%",            
+          );
+        return array_replace( array_flip($wantedUrls) , array_intersect_key($allShareUrls, array_flip($wantedUrls) ) );
+    }
+endif;
 /**
  * TODO:
  * 1. page formats  // 50%

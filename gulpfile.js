@@ -16,17 +16,18 @@ var rename = require("gulp-rename");
 var sass = require('gulp-sass');
 var pump = require('pump')
 
-gulp.task('concat_admin', function() {
-  return gulp.src('js/admin/*.js')
-    .pipe(concat('admin.js'))
-    .pipe(gulp.dest('js/'));
+gulp.task('concat_js', function() {
+  var files = ['admin', 'frontend'];
+  for(i=0; i<files.length;i++){
+    pump([ gulp.src('js/'+files[i]+'/*.js'),
+           concat(files[i]+'.js'),
+           gulp.dest('js/')
+        ]);
+    }
+    gulp.start('minify_js');
+    
 });
 
-gulp.task('concat_frontend', function() {
-  return gulp.src('js/frontend/*.js')
-    .pipe(concat('theme.js'))
-    .pipe(gulp.dest('js/'));
-});
 
 gulp.task('minify_js', function () {
   var files = ['admin', 'theme'];
@@ -37,8 +38,7 @@ gulp.task('minify_js', function () {
         uglify(options),
         rename(files[i]+'.min.js'),
         gulp.dest('js/')
-      ]
-    );
+      ]);
   }
 });
 
@@ -64,19 +64,16 @@ gulp.task('sass_build', function(){
             gulp.dest('css/')
         ]);
     }
+    
 });
 
 gulp.task('watch',function() {
-  gulp.watch(['sass/**/**/*.scss','sass/**/*.scss','sass/*.scss'], ['sass_build', 'minify_css']);
-  gulp.watch('js/fontend/*.js', ['concat_frontend','minify_js']);
-  gulp.watch('js/admin/*.js', ['concat_admin','minify_js']);
+  gulp.watch(['sass/**/**/*.scss','sass/**/*.scss','sass/*.scss'], ['sass_build']);
+  gulp.watch('js/fontend/*.js', ['concat_js']);
+  gulp.watch('js/admin/*.js', ['concat_js']);
+  gulp.watch(['css/admin.css','css/print.css','theme.css'], ['minify_css']);
 });
 
-gulp.task('load',
-          ['sass_build',
-           'concat_frontend',
-           'concat_admin',
-           'minify_js',
-           'minify_css']);
+gulp.task('load', ['sass_build','concat_js']);
 
 gulp.task('default', ['load','watch']);

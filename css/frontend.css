@@ -433,6 +433,13 @@ code {
     Created on : Sep 1, 2017, 12:58:21 PM
     Author     : rnw
 */
+#holder {
+  max-width: 1920px; }
+
+@media screen and (min-width: 1920px) {
+  margin-left: auto;
+  margin-right: auto; }
+
 main {
   max-width: 100%;
   padding-left: 20px;
@@ -444,14 +451,39 @@ main {
     margin-left: auto;
     margin-right: auto; } }
 
+footer {
+  margin-top: 80px;
+  width: 100%;
+  padding: 2em .5em 2em .5em;
+  color: whitesmoke;
+  background-color: #282828;
+  text-align: center;
+  font-size: .8em; }
+
 /* =Links
 -------------------------------------------------------------- */
 a {
   text-decoration: none;
-  border-bottom: solid 1px #282828; }
+  border-bottom: solid 1px #202435;
+  color: #1735ce; }
 
 a:hover {
-  border-bottom: solid 1px #ce4517; }
+  border-bottom: solid 1px #ce4517;
+  color: #202435;
+  text-shadow: 0 0 1px #999; }
+
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
+  border-bottom-width: 0;
+  color: #21759b;
+  text-shadow: none; }
+
+footer a {
+  border-bottom: solid 1px whitesmoke;
+  color: whitesmoke; }
+
+footer a:hover {
+  color: #ce4517;
+  text-shadow: none; }
 
 /* =WordPress Core
 -------------------------------------------------------------- */
@@ -546,3 +578,52 @@ a img.aligncenter {
   width: auto;
   z-index: 100000;
   /* Above WP toolbar. */ }
+
+input[type='email'],
+input[type='datetime'],
+input[type='datetime-local'],
+input[type='month'],
+input[type='password'],
+input[type='search'],
+input[type='tel'],
+input[type='text'],
+input[type='time'],
+input[type='url'],
+input[type='week'],
+select,
+textarea {
+  border: solid 1px #202435;
+  background-color: white;
+  color: #202435;
+  width: 98%;
+  margin-bottom: 1em; }
+
+input[type='email'],
+input[type='datetime'],
+input[type='datetime-local'],
+input[type='month'],
+input[type='password'],
+input[type='search'],
+input[type='tel'],
+input[type='text'],
+input[type='time'],
+input[type='url'],
+input[type='week'] {
+  line-height: 1.25em;
+  padding-left: .2em;
+  padding-right: .2em; }
+
+input[type='submit'] {
+  border: solid 2px #202435;
+  background-color: white;
+  color: #202435;
+  padding: 0 10px;
+  line-height: 2em; }
+
+input[type='submit']:hover {
+  border: solid 2px #ce4517;
+  color: #ce4517;
+  background-color: white; }
+
+label {
+  color: #202435; }

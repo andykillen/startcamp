@@ -28,31 +28,30 @@ class StartCampCustomizer {
             ) 
         );
         
-        $wp_customize->add_setting( 'show_share',
+        $wp_customize->add_setting( 'large_logo',
             array(
-                'default'    => 'no',
-                'type'       => 'option',
+                'default'    => '',                
                 'capability' => 'edit_theme_options',
                 'transport'  => 'postMessage',
             ) 
         );
         
-         $wp_customize->add_control( new WP_Customize_Control( $wp_customize, 
-         'startcamp_show_share', 
-         array(
-            'label'      => __( 'Show Share buttons', 'startcamp' ), 
-            'settings'   => 'show_share', 
-            'priority'   => 10,
-            'type'       => 'radio',
-            'choices'   => array('no' =>__('No', 'startcamp'), 'yes' =>__('Yes', 'startcamp') ),
-            'section'    => 'startcamp_options', 
-         ) 
-      ) );
+        $wp_customize->add_control(
+            new WP_Customize_Image_Control(
+                $wp_customize,
+                'startcamp_large_logo',
+                array(
+                    'label'      => __( 'Upload a logo for homepage hero overlay', 'startcamp' ),
+                    'section'    => 'startcamp_options',
+                    'settings'   => 'large_logo',
+                    'context'    => 'startcamp_large_logo' 
+                )
+            )
+        );
          
-          $wp_customize->add_setting( 'start_date',
+        $wp_customize->add_setting( 'start_date',
             array(
-                'default'    => date("d-m-Y"),
-                'type'       => 'option',
+                'default'    => date("Y-m-d"),
                 'capability' => 'edit_theme_options',
                 'transport'  => 'postMessage',
             ) 
@@ -62,15 +61,14 @@ class StartCampCustomizer {
          'startcamp_start_date', 
          array(
             'label'      => __( 'Start Date of WordCamp', 'startcamp' ), 
-            'settings'   => 'start_date',                         
-            'section'    => 'startcamp_options', 
+            'settings'   => 'start_date',             
+            'section'    => 'startcamp_options',
          ) 
       ) );
          
-           $wp_customize->add_setting( 'end_date',
+        $wp_customize->add_setting( 'end_date',
             array(
-                'default'    => date("d-m-Y"),
-                'type'       => 'option',
+                'default'    => date("Y-m-d"),
                 'capability' => 'edit_theme_options',
                 'transport'  => 'postMessage',
             ) 
@@ -79,11 +77,114 @@ class StartCampCustomizer {
         $wp_customize->add_control( new StartCampCustomizerDatePicker( $wp_customize, 
          'startcamp_end_date', 
          array(
-            'label'      => __( 'End Date of WordCamp', 'startcamp' ), 
-            'settings'   => 'end_date',                         
-            'section'    => 'startcamp_options', 
+            'label'      => __( 'End Date of WordCamp', 'startcamp' ),
+            'settings'   => 'end_date',
+            //'sanitize_callback' => 'absint',
+            'section'    => 'startcamp_options',
          ) 
-      ) );
+        ) );
+        
+        $wp_customize->add_setting( 'buy_page',
+            array(
+                'default'    => '',                
+                'capability' => 'edit_theme_options',
+                'transport'  => 'postMessage',
+            ) 
+        );
+        
+         $wp_customize->add_control( new WP_Customize_Control( $wp_customize, 
+         'startcamp_buy_page', 
+         array(
+            'label'             => __( 'Select Buy Page', 'startcamp' ), 
+            'settings'          => 'buy_page',            
+            'type'              => 'dropdown-pages',
+            'section'           => 'startcamp_options',
+         ) 
+        ) );
+        
          
+          $wp_customize->add_setting( 'buy_currency',
+            array(
+                'default'    => 'USD',
+                'type'       => 'theme_mod',
+                'capability' => 'edit_theme_options',
+                'transport'  => 'postMessage',
+            ) 
+        );
+        
+         $wp_customize->add_control( new WP_Customize_Control( $wp_customize, 
+         'startcamp_buy_currency', 
+         array(
+            'label'             => __( 'Select Currency', 'startcamp' ), 
+            'settings'          => 'buy_currency',                        
+            'type'              => 'select',
+             'choices'          => startcamp_currency_list(),
+            'section'           => 'startcamp_options',
+         ) 
+        ) );
+         
+         $wp_customize->add_setting( 'buy_price',
+            array(
+                'default'    => '',
+                'type'       => 'theme_mod',
+                'capability' => 'edit_theme_options',
+                'transport'  => 'postMessage',
+            ) 
+        );
+        
+         $wp_customize->add_control( new WP_Customize_Control( $wp_customize, 
+         'startcamp_buy_price', 
+         array(
+            'label'             => __( 'Ticket Price', 'startcamp' ), 
+            'settings'          => 'buy_price',            
+            'sanitize_callback' => 'absint',
+            'type'              => 'text',
+            'section'           => 'startcamp_options',
+         ) 
+        ) );
+         
+        $wp_customize->add_setting( 'show_share',
+            array(
+                'default'       => 'no',                
+                'capability' => 'edit_theme_options',
+                'transport'  => 'postMessage',
+            ) 
+        );
+        
+         $wp_customize->add_control( new WP_Customize_Control( $wp_customize, 
+         'startcamp_show_share', 
+         array(
+            'label'         => __( 'Show Share buttons', 'startcamp' ), 
+            'settings'      => 'show_share',
+            'priority'      => 100,
+            'type'          => 'radio',
+            'choices'       => array('no' =>__('No', 'startcamp'), 'yes' =>__('Yes', 'startcamp') ),
+            'section'       => 'startcamp_options', 
+         ) 
+        ) );
+         
+         $wp_customize->add_setting( 'share_buttons',
+            array(
+                'default'    => 'facebook,twitter',                
+                'capability' => 'edit_theme_options',
+                'transport'  => 'postMessage',
+            ) 
+        );
+        
+         $networks = array('facebook', 'googleplus', 'twitter', 'whatsapp',
+                           'viber', "pinterest", "linkedin", "qqzone", "tencent",
+                           "163", "baidu", "weibo", "douban", "kaixin", "renren",);
+         
+         $wp_customize->add_control( new StartCampCustomizerCheckboxes( $wp_customize,
+         'startcamp_share_buttons', 
+         array(
+            'label'         => __( 'Visible Share buttons ', 'startcamp' ),
+            'settings'      => 'share_buttons',            
+            'priority'      => 100,
+            'type'          => 'hidden',
+            'choices'       => array_combine($networks,$networks),
+            'section'       => 'startcamp_options', 
+         ) 
+        ) );
     }
 }

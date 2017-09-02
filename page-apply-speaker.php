@@ -6,4 +6,9 @@
  * @author Andrew Killen
  */
 
+
 get_header();
+
+
+
+get_footer();

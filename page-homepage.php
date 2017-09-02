@@ -10,8 +10,14 @@
 
 get_header();
 
-if ( have_posts() ) :    
-    while ( have_posts() ) : the_post(); 
+if ( have_posts() ) :
+    while ( have_posts() ) : the_post();
+        
+        
+        /**
+         * begin main after hero image as thats the nicest way to do this.
+         */
+        
         get_template_part('partials/loop', 'home');
     endwhile;
 endif;
@@ -29,7 +35,7 @@ if ( $loop1->have_posts() ) :
         get_template_part('partials/loop');
     endwhile;
     wp_reset_postdata();
-    ?><a href=""<?php
+    ?><a href="<?php ?>"><?php _e('read more news','startcamp'); ?></a><?php
 endif;
 
 

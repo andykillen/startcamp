@@ -16,10 +16,8 @@ if ( have_posts() ) :
     get_template_part('partials/loop');
  endwhile;
 endif;
-
-
 // Create a new form based on the registered name 'step1'
-$form = new StartCampForms('step1'); 
+$form = new StartCampForms('buy'); 
 // render the form and echo it to the screen
 $form->renderForm();
 // end of form

@@ -1,0 +1,55 @@
+input[type='email'],
+input[type='datetime'],
+input[type='datetime-local'],
+input[type='month'],
+input[type='password'],
+input[type='search'],
+input[type='tel'],
+input[type='text'],
+input[type='time'],
+input[type='url'],
+input[type='week'],
+select,
+textarea {
+    border: solid 1px $color-2;
+    background-color: $background-color-field;
+    color: $color-2;
+    width:98%;
+    margin-bottom: 1em;
+}
+
+input[type='email'],
+input[type='datetime'],
+input[type='datetime-local'],
+input[type='month'],
+input[type='password'],
+input[type='search'],
+input[type='tel'],
+input[type='text'],
+input[type='time'],
+input[type='url'],
+input[type='week'] {
+    line-height: 1.25em;
+    padding-left: .2em;
+    padding-right: .2em;
+}
+
+input[type='submit']{
+    border: solid 2px $color-2;
+    background-color: $background-color-field;
+    color: $color-2;
+    padding: 0 10px;
+    line-height: 2em;
+}
+input[type='submit']:hover{
+    border: solid 2px $color-3;
+    color:$color-3;
+    background-color: $background-color-field;    
+}
+
+label {
+    color: $color-2;
+}
+
+
+
