@@ -48,6 +48,111 @@ class StartCampCustomizer {
                 )
             )
         );
+        
+        $wp_customize->add_setting( 'acronym',
+            array(
+                'default'    => '',
+                'capability' => 'edit_theme_options',
+                'transport'  => 'postMessage',
+            ) 
+        );
+        
+        $wp_customize->add_control(
+            new WP_Customize_Control(
+                $wp_customize,
+                'startcamp_acronym',
+                array(
+                    'label'      => __( 'The shortname for this Word Camp, i.e WCUS', 'startcamp' ),
+                    'section'    => 'startcamp_options',
+                    'settings'   => 'acronym',
+                    'type'    => 'text'
+                )
+            )
+        );
+        
+        $wp_customize->add_setting( 'city',
+            array(
+                'default'    => '',
+                'capability' => 'edit_theme_options',
+                'transport'  => 'postMessage',
+            ) 
+        );
+        
+        $wp_customize->add_control(
+            new WP_Customize_Control(
+                $wp_customize,
+                'startcamp_city',
+                array(
+                    'label'      => __( 'Town or City Name', 'startcamp' ),
+                    'section'    => 'startcamp_options',
+                    'settings'   => 'city',
+                    'type'    => 'text'
+                )
+            )
+        );
+        
+        $wp_customize->add_setting( 'event_location',
+            array(
+                'default'    => '',
+                'capability' => 'edit_theme_options',
+                'transport'  => 'postMessage',
+            ) 
+        );
+        
+        $wp_customize->add_control(
+            new WP_Customize_Control(
+                $wp_customize,
+                'startcamp_event_location',
+                array(
+                    'label'      => __( 'Name of Venue', 'startcamp' ),
+                    'section'    => 'startcamp_options',
+                    'settings'   => 'event_location',
+                    'type'    => 'text'
+                )
+            )
+        );
+        
+        $wp_customize->add_setting( 'event_address',
+            array(
+                'default'    => '',
+                'capability' => 'edit_theme_options',
+                'transport'  => 'postMessage',
+            ) 
+        );
+        
+        $wp_customize->add_control(
+            new WP_Customize_Control(
+                $wp_customize,
+                'startcamp_event_address',
+                array(
+                    'label'      => __( 'Address of Venue', 'startcamp' ),
+                    'section'    => 'startcamp_options',
+                    'settings'   => 'event_address',
+                    'type'    => 'text'
+                )
+            )
+        );
+        
+        $wp_customize->add_setting( 'postcode',
+            array(
+                'default'    => '',
+                'capability' => 'edit_theme_options',
+                'transport'  => 'postMessage',
+            ) 
+        );
+        
+        $wp_customize->add_control(
+            new WP_Customize_Control(
+                $wp_customize,
+                'startcamp_postcode',
+                array(
+                    'label'      => __( 'Postcode or Zipcode', 'startcamp' ),
+                    'section'    => 'startcamp_options',
+                    'settings'   => 'postcode',
+                    'type'    => 'text'
+                )
+            )
+        );
          
         $wp_customize->add_setting( 'start_date',
             array(
