@@ -12,9 +12,7 @@
 }
 
 main { 
-    max-width: 100%;
-    padding-left:20px;
-    padding-right:20px
+    max-width: 100%;    
 }
 
 @media screen and (min-width:$page-max-width){
@@ -34,4 +32,58 @@ footer {
     background-color: $base-font-color;
     text-align: center;
     font-size:.8em;
+}
+
+.wide-col{
+    text-align: center;
+}
+article{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.wide-col {
+    margin-left: -20px;
+    margin-right: -20px;
+}
+
+/* responsive  AS table layout
+@media screen and (min-width:960px){
+    .grid {display:table}
+    .row {display: table-row}
+    .col-left {
+        width:66%;
+        margin-right: 3%;
+    }
+    .col-right{
+        width:30%
+    }
+}
+*/
+
+/* responsive  AS flexbox */
+@media screen and (min-width:800px){
+    article{
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .row{
+        display: flex;
+    }   
+    .wide-col{
+        flex: 1;
+        margin-left: 0;
+        margin-right: 0;
+    }
+    .left-col {
+        flex-grow: 1;
+        padding-left:20px;
+        
+    }
+    .right-col{
+        width: 26%;
+        padding-left:20px;
+        padding-right:20px;
+    }
+    
 }

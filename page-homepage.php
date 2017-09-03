@@ -12,13 +12,17 @@ get_header();
 
 if ( have_posts() ) :
     while ( have_posts() ) : the_post();
-        
-        
         /**
          * begin main after hero image as thats the nicest way to do this.
          */
-        
-        get_template_part('partials/loop', 'home');
+         ?>
+        <article>
+            <h1><?php the_title(); ?></h1>
+            <?php do_action('below_title'); ?>
+            <?php the_content(); ?>
+            <?php do_action('below_content'); ?>
+        </article>
+        <?php
     endwhile;
 endif;
 
@@ -32,7 +36,7 @@ $loop1 = new WP_Query($loop1_args);
 
 if ( $loop1->have_posts() ) :    
     while ( $loop1->have_posts() ) : $loop1->the_post(); 
-        get_template_part('partials/loop');
+        //get_template_part('partials/loop');
     endwhile;
     wp_reset_postdata();
     ?><a href="<?php ?>"><?php _e('read more news','startcamp'); ?></a><?php
@@ -54,7 +58,7 @@ $loop3 = new WP_Query($loop2_args);
 
 if ( $loop3->have_posts() ) :    
     while ( $loop3->have_posts() ) : $loop3->the_post(); 
-        get_template_part('partials/loop');
+        //get_template_part('partials/loop');
     endwhile;
     wp_reset_postdata();
 endif;
@@ -86,7 +90,7 @@ foreach ( $sponsors_loops as $type => $heading){
     if ( $sponsor_loop->have_posts() ) :
         ?><section><h1><?php echo $heading; ?></h1><?php 
         while ( $sponsor_loop->have_posts() ) : $sponsor_loop->the_post(); 
-            get_template_part('partials/loop');
+           // get_template_part('partials/loop');
         endwhile;
         wp_reset_postdata();
         ?></section><?php

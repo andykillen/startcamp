@@ -36,13 +36,30 @@ var setupShareing = {
       }
     },
 
-    
+    buttonsFixHref : function(){
+        var cont = document.getElementById('share-buttons');
+        if(cont === null ){
+            return;
+        }
+        var links = cont.getElementsByTagName('a');
+        var title = encodeURIComponent(document.title);
+        var uri = encodeURIComponent( window.location.href);
+        for(var i = 0; i < links.length; i++){
+            var url = links[i].getAttribute('href');
+            var newUrl = url.replace('%TITLE%', title).replace('%URI%', uri);
+            links[i].setAttribute('href',newUrl);
+        }
+    },
     
     init : function() {
       setupShareing.checkMobile();
       setupShareing.checkIos();
+      setupShareing.buttonsFixHref();
       if (!setupShareing.isMobile || (setupShareing.iosver !== false && setupShareing.iosver[0] < 6)) {
         var cont = document.getElementById('share-buttons');
+        if(cont === null ){
+            return;
+        }
         var wapp = cont.getElementsByClassName('spritefont-whatsapp');
         if (wapp.length > 0) {
           for (var i = 0; i < wapp.length; i++){
@@ -59,6 +76,7 @@ var setupShareing = {
       setupShareing.checkButtonCount();
     }
   };
+  setupShareing.init();
 /**
  * Added security on links to other sites, forcing noopener & noreferrer
  */
@@ -133,13 +151,14 @@ var setupShareing = {
      });
     }
   };
+  modal.init();
   /**
    * 
    */
   // Create share stuff in a window.
   var openShare = { 
     init : function(){
-      $('body').on('click', '.share-button:not(.mail-button,.share-wechat)', function(e){
+      $('body').on('click', '#share-buttons a', function(e){
         e.preventDefault();
         
         var href = $(this).attr("href");
@@ -161,18 +180,10 @@ var setupShareing = {
         // close modal behind
         modal.close();
       });
-      $('body').on('click', '.share-button.share-wechat', function(e){
-        e.preventDefault();
-        if($('#social-block .qr-code-page-url').length){
-          $('#social-block .qr-code-page-url').hide('fast').remove();
-          return false;
-        }
-
-        $('footer .qr-code-page-url').clone().appendTo('#social-block');
-
-      });
+     
     }
   };
+  openShare.init();
   
   var resizer = {
       video : [
@@ -224,8 +235,8 @@ var setupShareing = {
         for (i = 0; i < objects.length; i++) {
             w = jQuery(objects[i]).parent().width();
             h = (w / 16 * 9 );
-            jQuery(objects[i]).width(w).height(h);
-            jQuery('embed:first', objects[i]).width(w).height(h);
+            $(objects[i]).width(w).height(h);
+            $('embed:first', objects[i]).width(w).height(h);
         }
     },
     /**

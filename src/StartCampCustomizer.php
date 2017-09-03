@@ -277,7 +277,7 @@ class StartCampCustomizer {
         );
         
          $networks = array('facebook', 'googleplus', 'twitter', 'whatsapp',
-                           'viber', "pinterest", "linkedin", "qqzone", "tencent",
+                           'viber', "linkedin", "qqzone", "tencent",
                            "163", "baidu", "weibo", "douban", "kaixin", "renren",);
          
          $wp_customize->add_control( new StartCampCustomizerCheckboxes( $wp_customize,

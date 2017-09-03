@@ -20,7 +20,7 @@ gulp.task('concat_js', function() {
   var files = ['admin', 'frontend'];
   for(i=0; i<files.length;i++){
     pump([ gulp.src('js/'+files[i]+'/*.js'),
-           concat(files[i]+'.js'),
+           concat(files[i]+'.js'),           
            gulp.dest('js/')
         ]);
     }
@@ -30,7 +30,7 @@ gulp.task('concat_js', function() {
 
 
 gulp.task('minify_js', function () {
-  var files = ['admin', 'theme'];
+  var files = ['admin', 'frontend'];
   var options = {};
   for(i=0; i<files.length;i++){
     pump([
@@ -69,9 +69,8 @@ gulp.task('sass_build', function(){
 
 gulp.task('watch',function() {
   gulp.watch(['sass/**/**/*.scss','sass/**/*.scss','sass/*.scss'], ['sass_build']);
-  gulp.watch('js/fontend/*.js', ['concat_js']);
-  gulp.watch('js/admin/*.js', ['concat_js']);
-  gulp.watch(['css/admin.css','css/print.css','theme.css'], ['minify_css']);
+  gulp.watch(['./js/admin/*.js','./js/frontend/*.js'], ['concat_js']);  
+  gulp.watch(['./css/admin.css','./css/print.css','./theme.css'], ['minify_css']);
 });
 
 gulp.task('load', ['sass_build','concat_js']);

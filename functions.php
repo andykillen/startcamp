@@ -35,9 +35,9 @@ function startcamp_theme_setup(){
     set_post_thumbnail_size( 1200, 9999 );
 
     add_image_size( 'hero', 1920, 1200, true );
-    add_image_size( 'page', 1280, 800, true );
-    add_image_size( 'tablet', 853, 533, true );
-    add_image_size( 'mobile', 568, 355, true );
+    add_image_size( 'page', 1280, 600, true );
+    add_image_size( 'tablet', 853, 400, true );
+    add_image_size( 'mobile', 568, 266, true );
 
     register_nav_menus( array(
         'primary' => __( 'Primary Menu', 'startcamp' ),
@@ -95,7 +95,7 @@ add_action('init', 'startcamp_register_taxonomies', 0);
 if(!function_exists('startcamp_register_frontend_scripts_styles')):
     function startcamp_register_frontend_scripts_styles(){
         $type = (WP_DEBUG)? '.min' : '';
-        wp_enqueue_script( 'startcamp-theme', get_template_directory_uri()  . "/js/theme$type.js", array(), startcamp_cache_bust( "/js/theme$type.js" ) , true );
+        wp_enqueue_script( 'startcamp-theme', get_template_directory_uri()  . "/js/frontend$type.js", array('jquery'), startcamp_cache_bust( "/js/frontend$type.js" ) , true );
         wp_enqueue_style( 'startcamp-theme', get_template_directory_uri()  . "/css/frontend$type.css", array(), startcamp_cache_bust( "/css/frontend$type.css" )  );
         if ( is_singular() && comments_open()) {
             wp_enqueue_script( 'comment-reply' );
@@ -230,8 +230,7 @@ if(!function_exists('startcamp_share_urls')) :
             'googleplus' => "https://plusone.google.com/_/+1/confirm?hl=en&amp;url=%URI%&amp;title=%TITLE%",
             'twitter' => "http://twitter.com/share?url=%URI%&amp;text=%TITLE%",
             'whatsapp' => "whatsapp://send?text=%TITLE% %URI%",
-            'viber' => "viber://forward?text=%TITLE% %URI%",
-            "pinterest" => 'http://pinterest.com/pin/create/button/?url=%URI%&media=%IMAGE%&description=%TITLE%',
+            'viber' => "viber://forward?text=%TITLE% %URI%",            
             "linkedin" => 'http://www.linkedin.com/shareArticle?mini=true&url=%URI%&title=%TITLE%',
             "qqzone"=> "http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=%URI%&summary=%TITLE%",
             "tencent" => "http://share.v.t.qq.com/index.php?c=share&a=index&title=%TITLE%&url=%URI%",
@@ -259,3 +258,34 @@ endif;
  
  * 12. Archive layout
  */
+if(!function_exists('startcamp_image_sizes_attr')):
+    function startcamp_image_sizes_attr( $sizes, $size ) {
+        $width = $size[0];
+
+        if ( 1280 <= $width ) {
+                $sizes = '(max-width: 706px) 89vw, (max-width: 767px) 82vw, 740px';
+        }
+
+        if ( is_active_sidebar( 'sidebar-1' ) || is_archive() || is_search() || is_home() || is_page() ) {
+                if ( ! ( is_page() && 'one-column' === get_theme_mod( 'page_options' ) ) && 767 <= $width ) {
+                         $sizes = '(max-width: 767px) 89vw, (max-width: 1000px) 54vw, (max-width: 1071px) 543px, 580px';
+                }
+        }
+
+        return $sizes;
+    }
+endif;
+add_filter( 'wp_calculate_image_sizes', 'startcamp_image_sizes_attr', 10, 2 );
+
+if(!function_exists('startcamp_post_thumbnail_sizes_attr')):
+    function startcamp_post_thumbnail_sizes_attr( $attr, $attachment, $size ) {
+            if ( is_archive() || is_search() || is_home() ) {
+                    $attr['sizes'] = '(max-width: 767px) 89vw, (max-width: 1000px) 54vw, (max-width: 1071px) 543px, 580px';
+            } else {
+                    $attr['sizes'] = '100vw';
+            }
+
+            return $attr;
+    }
+endif;
+add_filter( 'wp_get_attachment_image_attributes', 'startcamp_post_thumbnail_sizes_attr', 10, 3 );
