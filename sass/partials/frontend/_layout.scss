@@ -26,13 +26,19 @@ main {
 
 footer {
     margin-top: 80px;
-    width:100%;
-    padding: 2em .5em 2em .5em;
+    width:100%;    
     color: $background-color;
-    background-color: $base-font-color;
-    text-align: center;
-    font-size:.8em;
+    #upper {
+        padding: 2em .5em 2em .5em;
+    }
+    #lower {
+        padding: 2em .5em 2em .5em;
+        font-size:.8em;
+        text-align: center;
+        background-color: $base-font-color;
+    }
 }
+
 
 .wide-col{
     text-align: center;

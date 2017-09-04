@@ -452,11 +452,14 @@ main {
 footer {
   margin-top: 80px;
   width: 100%;
-  padding: 2em .5em 2em .5em;
-  color: #fafafa;
-  background-color: #282828;
-  text-align: center;
-  font-size: .8em; }
+  color: #fafafa; }
+  footer #upper {
+    padding: 2em .5em 2em .5em; }
+  footer #lower {
+    padding: 2em .5em 2em .5em;
+    font-size: .8em;
+    text-align: center;
+    background-color: #282828; }
 
 .wide-col {
   text-align: center; }
