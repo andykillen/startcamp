@@ -162,7 +162,7 @@ class StartCampCustomizer {
             ) 
         );
           
-        $wp_customize->add_control( new StartCampCustomizerDatePicker( $wp_customize, 
+        $wp_customize->add_control( new StartCampCustomizerDatePicker( $wp_customize,
          'startcamp_start_date', 
          array(
             'label'      => __( 'Start Date of WordCamp', 'startcamp' ), 
@@ -179,7 +179,7 @@ class StartCampCustomizer {
             ) 
         );
           
-        $wp_customize->add_control( new StartCampCustomizerDatePicker( $wp_customize, 
+        $wp_customize->add_control( new StartCampCustomizerDatePicker( $wp_customize,
          'startcamp_end_date', 
          array(
             'label'      => __( 'End Date of WordCamp', 'startcamp' ),
@@ -191,17 +191,17 @@ class StartCampCustomizer {
         
         $wp_customize->add_setting( 'buy_page',
             array(
-                'default'    => '',                
+                'default'    => '',
                 'capability' => 'edit_theme_options',
                 'transport'  => 'postMessage',
             ) 
         );
         
-         $wp_customize->add_control( new WP_Customize_Control( $wp_customize, 
+         $wp_customize->add_control( new WP_Customize_Control( $wp_customize,
          'startcamp_buy_page', 
          array(
-            'label'             => __( 'Select Buy Page', 'startcamp' ), 
-            'settings'          => 'buy_page',            
+            'label'             => __( 'Select Buy Page', 'startcamp' ),
+            'settings'          => 'buy_page',
             'type'              => 'dropdown-pages',
             'section'           => 'startcamp_options',
          ) 

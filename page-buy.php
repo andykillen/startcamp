@@ -13,7 +13,7 @@ get_header();
 
 if ( have_posts() ) :
     while ( have_posts() ) : the_post(); 
-    get_template_part('partials/loop');
+    
  endwhile;
 endif;
 // Create a new form based on the registered name 'step1'

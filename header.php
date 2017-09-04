@@ -6,6 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="profile" href="http://gmpg.org/xfn/11">
         <?php wp_head(); ?>
+        <!--[if IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <![endif]-->
     </head>
     <body <?php body_class(); ?>>
         <a class="skip-link screen-reader-text" href="#content"><?php _e( 'Skip to content', 'startcamp' ); ?></a>
@@ -27,6 +30,7 @@
              * 1. add logo
              * 2. add dates
              * 3. add tagline
+             * 
              */
              ?></div><?php
             } ?>        

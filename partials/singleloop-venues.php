@@ -26,10 +26,14 @@ while ( have_posts() ) : the_post(); ?>
 <?php endwhile; 
 endif;
 
+startcamp_map();
+
+
 /**
  * TODO:
  * - name
  * - about
  * - seating 
  * - talks being done there by day
+ * + map added
  */

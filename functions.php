@@ -18,12 +18,6 @@ foreach($include_forms as $name => $file) {
 
 // Setup the theme
 
-
-
-
-
-
-
 if(!function_exists('startcamp_theme_setup')):
 /**
  * Theme basic setup
@@ -289,3 +283,52 @@ if(!function_exists('startcamp_post_thumbnail_sizes_attr')):
     }
 endif;
 add_filter( 'wp_get_attachment_image_attributes', 'startcamp_post_thumbnail_sizes_attr', 10, 3 );
+
+
+function startcamp_sidebars_list(){
+    $array = array(
+        'post',
+        'page',
+        'people',
+        'talks',
+        'sponsors',
+        'venues',  
+    );
+    
+    return apply_filters('startcamp_sidebars_array',$array);
+}
+
+
+if(!function_exists('startcamp_widgets_init')):
+    function startcamp_widgets_init(){
+        foreach(startcamp_sidebars_list() as $name){
+            register_sidebar( array(
+                'name' => __(ucfirst($name) .' Sidebar', 'startcamp' ),
+                'id' => str_replace(" ", "-", $name),
+                'description' => __( ucfirst($name) .' Post Type Sidebar', 'startcamp' ),
+                'before_widget' => '<div id="%1$s" class="widget %2$s">',
+                'after_widget'  => '</div>',
+                'before_title'  => '<span class="widgettitle">',
+                'after_title'   => '</span>',
+            ) );
+        }
+    }
+endif;
+add_action( 'widgets_init', 'startcamp_widgets_init' );
+
+
+if(!function_exists('startcamp_map')):
+    function startcamp_map(){
+        $address = array('event_location', 'event_address','event_postcode');
+        $key = 0; 
+        foreach($address as $item ) {
+            $address[$item] = get_theme_mod($item, '');
+            unset($address[$key]);
+            $key++;
+        }
+        print_r($address);
+        ?>
+    <iframe style='width:100%' height="400" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?q=<?php urlencode(implode(",",$address)) ?>&amp;ie=UTF8&amp;&amp;output=embed"></iframe>
+        <?php 
+    }
+endif;

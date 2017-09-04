@@ -1,6 +1,7 @@
     </main>
     <footer>
-        <?php get_template_part('partials/footer'); ?>
+        <?php get_template_part('partials/footer', 'upper'); ?>
+        <?php get_template_part('partials/footer', 'lower'); ?>
     </footer>
     </div>
     <?php 
