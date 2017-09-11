@@ -15,9 +15,10 @@ foreach($include_forms as $name => $file) {
     include $file;
     $forms->register($name, $form);
 }
+// include metaboxes
+require 'metaboxes/loadAndControlMetaBoxes.php';
 
 // Setup the theme
-
 if(!function_exists('startcamp_theme_setup')):
 /**
  * Theme basic setup
@@ -332,3 +333,17 @@ if(!function_exists('startcamp_map')):
         <?php 
     }
 endif;
+
+
+function startcamp_return_date_array(){
+    $period = new DatePeriod(
+     new DateTime( get_theme_mod('start_date', date("Y-m-d")) ),
+     new DateInterval('P1D'),
+     new DateTime( get_theme_mod('end_date', date("Y-m-d")) )
+    );
+    $array = [];
+    foreach($period as $day){
+        $array[] = $day->format('Y-m-d');
+    }
+    return $array;
+}
