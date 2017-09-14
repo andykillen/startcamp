@@ -192,9 +192,18 @@ endif;
 $custom = new StartCampCustomizer();
 $custom->init();  // nope, no __construct.
 
-
+/**
+ * Show a programm schedule.
+ */
 if(!function_exists('startcamp_show_programme')) :
-    function startcamp_show_programme(){
+    /**
+     * Returns array of data or built table showing the program schedule.
+     * 
+     * @param string $style 'short' or 'long'
+     * @param bool $echo
+     */
+    function startcamp_show_programme($style = 'short', $echo = true){
+        // TODO: make this happen!
         echo "the programme here!";
     }
 endif;
