@@ -73,6 +73,8 @@ if(!function_exists('startcamp_register_taxonomies')):
     function startcamp_register_taxonomies(){
         // person type
         include get_template_directory() . '/register/taxonomies/person-type.php';
+        // person experience 
+        include get_template_directory() . '/register/taxonomies/experience.php';
         // talk type
         include get_template_directory() . '/register/taxonomies/talk-type.php';
         // Target Audience
