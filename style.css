@@ -3,7 +3,7 @@ Theme Name: Start Camp
 Theme URI: https://github.com/andykillen/startcamp
 Author: the WordPress team
 Author URI: https://bas-works.com
-Description: Starter theme for WordCamp
+Description: Starter theme for WordCamp(s)
 Version: 0.1
 License: GNU General Public License v3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -13,4 +13,23 @@ Text Domain: startcamp
 This theme, like WordPress, is licensed under the GPL.
 */
 
+/*
+This theme does not load the style.css, it loads a minified CSS that is created
+by SASS.  The SASS files are found in the sass directory. 
 
+It uses Gulp to convert the SASS files to CSS and then minify them.  
+
+To install gulp and all the packages necessary, install npm 
+https://www.npmjs.com/get-npm
+and then go to the root of this theme and run
+
+npm install
+
+once installed run 'gulp' from the command line and leave it alone.  it will 
+automatically minify a new version of the CSS on every change you make. 
+
+However.....
+
+Its better in many cases to make a child theme and do adaptions in there.
+
+*/
