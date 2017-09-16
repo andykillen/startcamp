@@ -218,9 +218,9 @@ if(!function_exists('startcamp_currency_list')) :
     }
 endif;
 
-if(!function_exists('startcamp_share_urls')) :
-    function startcamp_share_urls($wantedUrls){
-        $allShareUrls = array(
+if(!function_exists('startcamp_social_networks')){
+    function startcamp_social_networks(){
+        $social_networks = array(
             'facebook' => "http://www.facebook.com/sharer.php?u=%URI%&amp;t=%TITLE%",
             'googleplus' => "https://plusone.google.com/_/+1/confirm?hl=en&amp;url=%URI%&amp;title=%TITLE%",
             'twitter' => "http://twitter.com/share?url=%URI%&amp;text=%TITLE%",
@@ -236,6 +236,14 @@ if(!function_exists('startcamp_share_urls')) :
             "kaixin" => "http://www.kaixin001.com/repaste/share.php?rtitle=%TITLE%&rcontent=&rurl=%URI%",
             "renren" => "http://share.renren.com/share/buttonshare.do?link=%TITLE%&title=%TITLE%",            
           );
+         return apply_filters('startcamp_share_array', $social_networks);
+    }
+}
+
+if(!function_exists('startcamp_share_urls')) :
+    function startcamp_share_urls($wantedUrls){
+        array();
+        $allShareUrls = startcamp_social_networks();
         return array_replace( array_flip($wantedUrls) , array_intersect_key($allShareUrls, array_flip($wantedUrls) ) );
     }
 endif;
@@ -245,7 +253,7 @@ endif;
  
  * 3. images & responsive
  
- * * 6. Share FB, Twitter, Linked in. 
+ * * 6. Share FB, Twitter, Linked in. 50%
  * 7. JSON LD 
  * 8. Finish the customizer
  * 9. Hero image

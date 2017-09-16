@@ -276,9 +276,7 @@ class StartCampCustomizer {
             ) 
         );
         
-         $networks = array('facebook', 'googleplus', 'twitter', 'whatsapp',
-                           'viber', "linkedin", "qqzone", "tencent",
-                           "163", "baidu", "weibo", "douban", "kaixin", "renren",);
+         $networks = array_keys(startcamp_social_networks());
          
          $wp_customize->add_control( new StartCampCustomizerCheckboxes( $wp_customize,
          'startcamp_share_buttons', 
