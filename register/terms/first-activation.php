@@ -22,6 +22,11 @@ $array_of_tax_terms = array(
     'sponsor-type' => [ __("Gold", "startcamp")=> array( 'desctiption' =>'', 'nicename' => 'gold', 'parent' =>'' )],
     'sponsor-type' => [ __("Silver", "startcamp")=> array( 'desctiption' =>'', 'nicename' => 'silver', 'parent' =>'' )],
     'sponsor-type' => [ __("Bronze", "startcamp")=> array( 'desctiption' =>'', 'nicename' => 'bronze', 'parent' =>'' )],
+    
+    'experience' => [ __("Core Contributor", "startcamp")=> array( 'desctiption' =>'', 'nicename' => 'core-contributor', 'parent' =>'' )],
+    'experience' => [ __("Plugin Developer", "startcamp")=> array( 'desctiption' =>'', 'nicename' => 'plugin-developer', 'parent' =>'' )],
+    'experience' => [ __("Theme Developer", "startcamp")   => array( 'desctiption' =>'', 'nicename' => 'theme-developer', 'parent' =>'' )],
+    'experience' => [ __("WordCamp Speaker", "startcamp")   => array( 'desctiption' =>'', 'nicename' => 'wordcamp-speaker', 'parent' =>'' )],
 );
 foreach ($array_of_tax_terms as $tax => $term_details){
     wp_insert_term(array_key($term_details) , $tax, array_values($term_details) );

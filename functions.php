@@ -53,13 +53,13 @@ add_action( 'after_setup_theme', 'startcamp_theme_setup' );
  */
 if(!function_exists('startcamp_register_post_types')):
     function startcamp_register_post_types(){
-        // Venue information
+        // Venue information.
         include get_template_directory() . '/register/posttypes/venues.php';
-        // People who are Speaking, Organizing or Sponsoring
+        // People who are Speaking, Organizing or Sponsoring.
         include get_template_directory() . '/register/posttypes/people.php';
-        // Talks 
+        // Talks.
         include get_template_directory() . '/register/posttypes/talks.php';
-        // Sponsors 
+        // Sponsors.
         include get_template_directory() . '/register/posttypes/sponsors.php';
     }
 endif;
@@ -71,13 +71,15 @@ add_action('init', 'startcamp_register_post_types', 10);
  */
 if(!function_exists('startcamp_register_taxonomies')):
     function startcamp_register_taxonomies(){
-        // person type
+        // Person type.
         include get_template_directory() . '/register/taxonomies/person-type.php';
-        // talk type
+        // Persons experience.
+        include get_template_directory() . '/register/taxonomies/experience.php';
+        // Talk type.
         include get_template_directory() . '/register/taxonomies/talk-type.php';
-        // Target Audience
+        // Target Audience.
         include get_template_directory() . '/register/taxonomies/audience.php';
-        // Sponsor types
+        // Sponsor types.
         include get_template_directory() . '/register/taxonomies/sponsor-type.php';
     }
 endif;
@@ -190,9 +192,18 @@ endif;
 $custom = new StartCampCustomizer();
 $custom->init();  // nope, no __construct.
 
-
+/**
+ * Show a programm schedule.
+ */
 if(!function_exists('startcamp_show_programme')) :
-    function startcamp_show_programme(){
+    /**
+     * Returns array of data or built table showing the program schedule.
+     * 
+     * @param string $style 'short' or 'long'
+     * @param bool $echo
+     */
+    function startcamp_show_programme($style = 'short', $echo = true){
+        // TODO: make this happen!
         echo "the programme here!";
     }
 endif;
