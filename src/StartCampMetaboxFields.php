@@ -385,11 +385,11 @@ class StartCampMetaboxFields {
          }
          ?>
          <tr>
-                 <th></th>
-                 <td>                                                           
-                     <input type="hidden" id="<?php echo $name ?>" name="<?php echo $name ?>" value="<?php echo  (isset($value) ) ? $value : $default; ?>"  />                                                                                            
-                     <input type="hidden" name="<?php echo $name; ?>_noncename" id="<?php echo $name; ?>_noncename" value="<?php echo wp_create_nonce( $name."_noncename" ); ?>" /> 
-                 </td>
+                <th></th>
+                <td>                                                           
+                    <input type="hidden" id="<?php echo $name ?>" name="<?php echo $name ?>" value="<?php echo  (isset($value) ) ? $value : $default; ?>"  />                                                                                            
+                    <input type="hidden" name="<?php echo $name; ?>_noncename" id="<?php echo $name; ?>_noncename" value="<?php echo wp_create_nonce( $name."_noncename" ); ?>" /> 
+                </td>
          </tr>
          <?php
         if(isset($echo) && $echo == 0 ){
