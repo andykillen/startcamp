@@ -5,7 +5,8 @@
  * quickly slapped it in to do the job.  Creates fields based on being fed
  * arrays of data. Its only used on the metaboxes.
  * 
- *
+ * Probably I would not do things like this again, but its made and so cool.
+ * 
  * @author Andrew Killen
  */
 class StartCampMetaboxFields {
@@ -256,15 +257,14 @@ class StartCampMetaboxFields {
         }
     }
 
-
-
-/*
- * 
- * check boxes 
- * 
- * 
- */
-function get_meta_checkbox( $args = array(), $value = false ) {
+    /**
+     * Make a singular checkbox.
+     * 
+     * @param array $args [width, echo, title, name, class, helper, options]
+     * @param string $value
+     * @return string
+     */
+    public function get_meta_checkbox( $args = array(), $value = false ) {
             extract( $args );
             if(!isset($width)){
                $width = 'style="width:25%;"';
@@ -275,183 +275,106 @@ function get_meta_checkbox( $args = array(), $value = false ) {
             $i =1;
             ?>
             <tr>
-                    <th <?php echo $width ?> >
-                        <?php foreach($options as $option => $item){ 
-                                if(!isset($item['imcrement'])){
-                                    $imcrement = '';
-                                }
-                                else{
-                                    $imcrement = $item['imcrement'];
-                                }
+                <th <?php echo $width ?> >
+                    <?php foreach($options as $option => $item){ 
+                            if(!isset($item['imcrement'])){
+                                $imcrement = '';
+                            }
+                            else{
+                                $imcrement = $item['imcrement'];
+                            }
 
-                    if($i < 2){ ?>
-                        <label for="<?php echo $option; ?>"><?php echo $title; ?></label>
-                    </th>
-                    <td>
-                    <?php }
+                if($i < 2){ ?>
+                    <label for="<?php echo $option; ?>"><?php echo $title; ?></label>
+                </th>
+                <td>
+                <?php }
 
-                          ?><input  id="<?php echo $option ?><?php echo $error_name?>" type="hidden" value="<?php echo $item['error_value'] ?>" name="<?php echo $option ?><?php echo $item['error_name'];?>">
-                            <input type="hidden" id="<?php echo $option ?><?php echo $imcrement ?>" name="<?php echo $option ?><?php echo $imcrement ?>" value="no"  />
-                            <input type="checkbox" id="<?php echo $option ?><?php echo $imcrement ?>" name="<?php echo $option ?><?php echo $imcrement ?>" value="yes" <?php if ( htmlentities( $item['value'], ENT_QUOTES ) == 'yes' ) echo ' checked'; ?>  />
-                            <label for="<?php echo $option ?><?php echo $imcrement ?>"><?php echo $option ?></label><br/>
+                      ?><input  id="<?php echo $option ?><?php echo $error_name?>" type="hidden" value="<?php echo $item['error_value'] ?>" name="<?php echo $option ?><?php echo $item['error_name'];?>">
+                        <input type="hidden" id="<?php echo $option ?><?php echo $imcrement ?>" name="<?php echo $option ?><?php echo $imcrement ?>" value="no"  />
+                        <input type="checkbox" id="<?php echo $option ?><?php echo $imcrement ?>" name="<?php echo $option ?><?php echo $imcrement ?>" value="yes" <?php if ( htmlentities( $item['value'], ENT_QUOTES ) == 'yes' ) echo ' checked'; ?>  />
+                        <label for="<?php echo $option ?><?php echo $imcrement ?>"><?php echo $option ?></label><br/>
 
-                            <?php $i++; }
-                            if(!empty($helper) ) {?>
-                            <br/><small><?php echo $helper ?></small>
-                            <?php } ?>
-                    </td>
+                        <?php $i++; }
+                        if(!empty($helper) ) {?>
+                        <br/><small><?php echo $helper ?></small>
+                        <?php } ?>
+                </td>
             </tr>
             <?php
         if(isset($echo) && $echo == 0 ){
-          $output = ob_get_contents();
-          ob_end_clean();
-          return $output;
+            $output = ob_get_contents();
+            ob_end_clean();
+            return $output;
         }  
     }
 
-
-
-    function get_divider(){
-
+    /**
+     * Show a simple devider.  
+     * 
+     * @param bool $echo should it echo or return (false for return).
+     */
+    public function get_divider($echo = true){
+        if(isset($echo) && $echo == 0 ){
+                ob_start();   
+        }
         ?>
             <tr><th style="padding-top:1em; border-bottom: solid 1px #ccc" >                            
                 </th><td style="padding-top:1em; border-bottom: solid 1px #ccc"></td></tr>
             <tr><th style="padding-top:1em;" ></th><td style="padding-top:1em;"></td></tr>
         <?php    
-
+        if(isset($echo) && $echo == 0 ){
+            $output = ob_get_contents();
+            ob_end_clean();
+            return $output;
+        }  
     }
 
 
 
-    /*
-     * radio buttons
+    public function get_meta_radio( $args = array(), $value = false ) {
+        extract( $args );
+        if(($value == false || empty($value)) && isset($default)){
+          $value = $default;                      
+        }
+        if(!isset($width)){
+           $width = 'style="width:25%;"';
+        }
+        if(isset($echo) && $echo == 0 ){
+            ob_start();   
+        }
+        ?>
+        <tr>
+            <th <?php echo $width ?> >
+                    <label for="<?php echo $name; ?>"><?php echo $title; ?></label>
+            </th>
+            <td id="<?php echo $option ?>-cell">
+                <?php foreach($options as $option){ ?>
+                        <input type="radio" id="<?php echo $name ?>" name="<?php echo $name ?>" value="<?php echo $option ?>" <?php if ( htmlentities( $value, ENT_QUOTES ) == $option ) echo ' checked'; ?>  />
+                        <label for="<?php echo $name ?>"><?php echo $text ?></label><br/>
+                <?php } 
+                if(!empty($helper) ) {?>
+                <br/><small><?php echo $helper ?></small>
+                <?php } ?>
+                <input type="hidden" name="<?php echo $name; ?>_noncename" id="<?php echo $name; ?>_noncename" value="<?php echo wp_create_nonce( $name."_noncename" ); ?>" />
+            </td>
+        </tr>
+        <?php
+        if(isset($echo) && $echo == 0 ){
+            $output = ob_get_contents();
+            ob_end_clean();
+            return $output;
+        }
+    }
+
+    /**
+     * Add a hidden value.
      * 
-     * 
+     * @param type $args
+     * @param type $value
+     * @return type
      */
-
-
-    function get_meta_radio( $args = array(), $value = false ) {
-            extract( $args );
-            if(($value == false || empty($value)) && isset($default)){
-              $value = $default;                      
-            }
-            if(!isset($width)){
-               $width = 'style="width:25%;"';
-            }
-            if(isset($echo) && $echo == 0 ){
-                ob_start();   
-            }
-            ?>
-            <tr>
-                    <th <?php echo $width ?> >
-                            <label for="<?php echo $name; ?>"><?php echo $title; ?></label>
-                    </th>
-                    <td id="<?php echo $option ?>-cell">
-                            <?php foreach($options as $option){ ?>
-                                    <input type="radio" id="<?php echo $name ?>" name="<?php echo $name ?>" value="<?php echo $option ?>" <?php if ( htmlentities( $value, ENT_QUOTES ) == $option ) echo ' checked'; ?>  />
-                                    <label for="<?php echo $name ?>"><?php echo $text ?></label><br/>
-                            <?php } 
-                            if(!empty($helper) ) {?>
-                            <br/><small><?php echo $helper ?></small>
-                            <?php } ?>
-                            <input type="hidden" name="<?php echo $name; ?>_noncename" id="<?php echo $name; ?>_noncename" value="<?php echo wp_create_nonce( $name."_noncename" ); ?>" />
-                    </td>
-            </tr>
-            <?php
-        if(isset($echo) && $echo == 0 ){
-          $output = ob_get_contents();
-          ob_end_clean();
-          return $output;
-        }  
-    }
-
-    function get_meta_radio_icons( $args = array(), $value = false ) {
-            extract( $args );
-            if(($value == false || empty($value)) && isset($default)){
-              $value = $default;                      
-            }
-            if(!isset($width)){
-               $width = 'style="width:25%;"';
-            }
-            if(isset($echo) && $echo == 0 ){
-                ob_start();   
-            }
-            ?>
-            <tr class="icontable">
-                    <th <?php echo $width ?> >
-                            <label for="<?php echo $name; ?>"><?php echo $title; ?></label>
-                    </th>
-                    <td>
-                      <table>                                
-                        <tr>                                                                
-                    <?php foreach($options as $option => $text){ ?>
-                    <td id="<?php echo $option ?>-cell">                            
-                                    <input type="radio" id="<?php echo $name ?>" name="<?php echo $name ?>" value="<?php echo $option ?>" <?php if ( htmlentities( $value, ENT_QUOTES ) == $option ) echo ' checked'; ?>  />
-                                    <label for="<?php echo $name ?>" class="icon-<?php echo $option ?> no-text-shown" ><span><?php echo $text ?></span></label><br/>                                                   
-                    </td>
-                    <?php } ?>
-                    </tr>
-                      </table>
-                         <?php if(!empty($helper) ) {?>
-                            <br/><small><?php echo $helper ?></small>
-                            <?php } ?>
-                            <input type="hidden" name="<?php echo $name; ?>_noncename" id="<?php echo $name; ?>_noncename" value="<?php echo wp_create_nonce( $name."_noncename" ); ?>" />
-                    </td>
-            </tr>
-            <?php
-        if(isset($echo) && $echo == 0 ){
-          $output = ob_get_contents();
-          ob_end_clean();
-          return $output;
-        }  
-    }
-
-    function get_meta_radio_screen_choice( $args = array(), $value = false ) {
-            extract( $args );
-            if(($value == false || empty($value)) && isset($default)){
-              $value = $default;
-
-            }
-            if(!isset($width)){
-               $width = 'style="width:25%;"';
-            }
-            if(isset($echo) && $echo == 0 ){
-                ob_start();   
-            }
-            ?>
-            <tr id="screen-choice">
-                    <th <?php echo $width ?> >
-                            <label for="<?php echo $name; ?>"><?php echo $title; ?></label>
-                    </th>
-                    <td>
-                      <table>
-                        <tr>
-                            <?php foreach($options as $option => $text){ ?>
-                            <td id="<?php echo $option ?>-cell" style="text-align: center">
-                              <img src="<?php bloginfo("template_directory"); ?>/images/<?php echo $option ?>.png" height="90" width="160" /> <br />                                      
-                              <label for="<?php echo $name ?>"><?php echo $text ?></label><br/>
-                              <input type="radio" id="<?php echo $name ?>" name="<?php echo $name ?>" value="<?php echo $option ?>" <?php if ( htmlentities( $value, ENT_QUOTES ) == $option ) echo ' checked'; ?>  />
-                            </td>
-                            <?php } ?>
-                         </tr>
-                      </table>   
-                      <?php  
-                       if(!empty($helper) ) {?>
-                       <br/><small><?php echo $helper ?></small>
-                      <?php } ?>
-                      <input type="hidden" name="<?php echo $name; ?>_noncename" id="<?php echo $name; ?>_noncename" value="<?php echo wp_create_nonce( $name."_noncename" ); ?>" /> 
-                    </td>
-            </tr>
-            <?php
-        if(isset($echo) && $echo == 0 ){
-          $output = ob_get_contents();
-          ob_end_clean();
-          return $output;
-        }  
-    }            
-
-            
-    function get_hidden( $args = array(), $value) {
+    public function get_hidden( $args = array(), $value) {
          extract( $args );                    
          if(isset($echo) && $echo == 0 ){
              ob_start();   
@@ -469,11 +392,11 @@ function get_meta_checkbox( $args = array(), $value = false ) {
                  </td>
          </tr>
          <?php
-     if(isset($echo) && $echo == 0 ){
-       $output = ob_get_contents();
-       ob_end_clean();
-       return $output;
-     }  
- }
-       
+        if(isset($echo) && $echo == 0 ){
+            $output = ob_get_contents();
+            ob_end_clean();
+            return $output;
+        }  
+    }
+
 }
