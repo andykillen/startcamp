@@ -1,168 +1,169 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Description of StartCampMetaboxFields
+ * This is a very old class I have been carrying round for years.  I just
+ * quickly slapped it in to do the job.  Creates fields based on being fed
+ * arrays of data. Its only used on the metaboxes.
+ * 
  *
  * @author Andrew Killen
  */
 class StartCampMetaboxFields {
-    function get_meta_text_input( $args = array(), $value = false) {
-    extract( $args );
-    if(!isset($width)){
-       $width = 'style="width:25%;"';
-    }
-    if($value == false && isset($default)){
-      $value = $default;
-    }
-
-
-    if(isset($echo) && $echo == 0 ){
-      ob_start();   
-    }        
-    ?>
-    <tr>
-            <th <?php echo $width ?> >
-                    <label for="<?php echo $name; ?>"><?php echo $title; ?></label>
-            </th>
-            <td>
-                    <input type="text" name="<?php echo $name; ?>" class="<?php if(isset($class)){ echo $class; } ?>" id="<?php echo $name; ?>" value="<?php echo esc_html( $value, 1 ); ?>" size="30" tabindex="30" style="width: 97%;" />
-                    <input type="hidden" name="<?php echo $name; ?>_noncename" id="<?php echo $name; ?>_noncename" value="<?php echo wp_create_nonce( $name."_noncename" ); ?>" />
-                    <?php if(!empty($helper) ) {?>
-                    <br/><small><?php echo $helper ?></small>
-                    <?php } ?>
-            </td>
-    </tr>
-    <?php
-    if(isset($echo) && $echo == 0 ){
-      $output = ob_get_contents();
-      ob_end_clean();
-      return $output;
-    }        
-
-
-}
-
-
- /*
- * text area
- * 
- * 
- */
-function get_meta_posts_dropdown( $args = array(), $value = false ) {
-
-    extract( $args );
-    if(!isset($width)){
-       $width = 'style="width:25%;"';
-    }
-     if(isset($echo) && $echo == 0 ){
-          ob_start();   
+    
+    /**
+     * Create a text input field
+     * 
+     * @param array $args [width, echo, title, name, class, helper, default]
+     * @param string $value the value of the field
+     * @return type
+     */
+    public function get_meta_text_input( $args = array(), $value = false) {
+        extract( $args );
+        if(!isset($width)){
+           $width = 'style="width:25%;"';
         }
-    ?>
+        if($value == false && isset($default)){
+          $value = $default;
+        }
 
-    <tr>
+
+        if(isset($echo) && $echo == 0 ){
+          ob_start();
+        } ?>
+        <tr>
+                <th <?php echo $width ?> >
+                        <label for="<?php echo $name; ?>"><?php echo $title; ?></label>
+                </th>
+                <td>
+                        <input type="text" name="<?php echo $name; ?>" class="<?php if(isset($class)){ echo $class; } ?>" id="<?php echo $name; ?>" value="<?php echo esc_html( $value, 1 ); ?>" size="30" tabindex="30" style="width: 97%;" />
+                        <input type="hidden" name="<?php echo $name; ?>_noncename" id="<?php echo $name; ?>_noncename" value="<?php echo wp_create_nonce( $name."_noncename" ); ?>" />
+                        <?php if(!empty($helper) ) {?>
+                        <br/><small><?php echo $helper ?></small>
+                        <?php } ?>
+                </td>
+        </tr>
+        <?php
+        if(isset($echo) && $echo == 0 ){
+          $output = ob_get_contents();
+          ob_end_clean();
+          return $output;
+        }
+    }
+
+
+    /**
+     * Present a listing of all posts as a drop down select.
+     * 
+     * @global object $wpdb
+     * @param array $args [width, echo, title, name, class, helper]
+     * @param string $value
+     * @return string
+     */ 
+    public function get_meta_posts_dropdown( $args = array(), $value = false ) {
+
+        extract( $args );
+        if(!isset($width)){
+           $width = 'style="width:25%;"';
+        }
+         if(isset($echo) && $echo == 0 ){
+              ob_start();   
+            }
+        ?>
+        <tr>
             <th <?php echo $width ?> >
                     <label for="<?php echo $name; ?>"><?php echo $title; ?></label>
             </th>
             <td>
-
                 <?php $val = esc_html( $value, 1 ); ?>                        
-                    <select name="<?php echo $name; ?>" id="<?php echo $name; ?>" style="width: 97%;">
+                <select name="<?php echo $name; ?>" id="<?php echo $name; ?>" style="width: 97%;">
+                    <option value=''><?php _e('Select a post','startcamp'); ?></option>
+                     <?php
+                     global $wpdb;
+                     $query = "SELECT ID, post_title FROM {$wpdb->posts} WHERE post_type = 'post'  AND post_status ='publish' ";
+                     $result = $wpdb->get_results($query);
 
-                        <option value=''>Select a post</option>
-                         <?php
-                         global $wpdb;
+                     foreach ($result as $row){
+                         $selected = ($row->ID == $val) ? "selected" : "" ;
+                         ?><option value='<?php echo $row->ID ?>'  <?php echo $selected ?>><?php echo $row->post_title ?></option><?php
+                     }
+                    ?>                                                                                            
+                </select>
 
-                         $query = "SELECT ID, post_title FROM {$wpdb->posts} WHERE post_type = 'post'  AND post_status ='publish' ";
-
-                         $result = $wpdb->get_results($query);
-
-                         foreach ($result as $row){
-                             $selected = ($row->ID == $val) ? "selected" : "" ;
-                             ?><option value='<?php echo $row->ID ?>'  <?php echo $selected ?>><?php echo $row->post_title ?></option><?php
-                         }                                                                
-                        ?>                                                                                            
-                    </select>
-
-
-
-
-                    <input type="hidden" name="<?php echo $name; ?>_noncename" id="<?php echo $name; ?>_noncename" value="<?php echo wp_create_nonce( $name."_noncename" ); ?>" />
-                    <?php if(!empty($helper) ) {?>
-                    <br/><small><?php echo $helper ?></small>
-                    <?php } ?>
+                <input type="hidden" name="<?php echo $name; ?>_noncename" id="<?php echo $name; ?>_noncename" value="<?php echo wp_create_nonce( $name."_noncename" ); ?>" />
+                <?php if(!empty($helper) ) {?>
+                <br/><small><?php echo $helper ?></small>
+                <?php } ?>
             </td>
-    </tr>
-    <?php
-    if(isset($echo) && $echo == 0 ){
-          $output = ob_get_contents();
-          ob_end_clean();
-          return $output;
-        }  
-}
-
-
-
-
-/*
- * text area
- * 
- * 
- */
-function get_meta_textarea( $args = array(), $value = false ) {
-
-    extract( $args );
-    if(!isset($width)){
-       $width = 'style="width:25%;"';
+        </tr>
+        <?php
+        if(isset($echo) && $echo == 0 ){
+              $output = ob_get_contents();
+              ob_end_clean();
+              return $output;
+            }
     }
-     if(isset($echo) && $echo == 0 ){
-          ob_start();   
-        }
-    ?>
 
-    <tr>
+
+
+
+    /**
+     * Create a textarea.
+     * 
+     * @param array $args [width, echo, title, name, class, helper]
+     * @param string $value 
+     * @return type
+     */
+    function get_meta_textarea( $args = array(), $value = false ) {
+
+        extract( $args );
+        if(!isset($width)){
+           $width = 'style="width:25%;"';
+        }
+         if(isset($echo) && $echo == 0 ){
+              ob_start();   
+            }
+        ?>
+
+        <tr>
             <th <?php echo $width ?> >
                     <label for="<?php echo $name; ?>"><?php echo $title; ?></label>
             </th>
             <td>
-                    <textarea name="<?php echo $name; ?>" id="<?php echo $name; ?>" cols="60" rows="4" tabindex="30" style="width: 97%;"><?php echo esc_html( $value, 1 ); ?></textarea>
-                    <input type="hidden" name="<?php echo $name; ?>_noncename" id="<?php echo $name; ?>_noncename" value="<?php echo wp_create_nonce( $name."_noncename" ); ?>" />
-                    <?php if(!empty($helper) ) {?>
-                    <br/><small><?php echo $helper ?></small>
-                    <?php } ?>
+                <textarea name="<?php echo $name; ?>" id="<?php echo $name; ?>" cols="60" rows="4" tabindex="30" style="width: 97%;"><?php echo esc_html( $value, 1 ); ?></textarea>
+                <input type="hidden" name="<?php echo $name; ?>_noncename" id="<?php echo $name; ?>_noncename" value="<?php echo wp_create_nonce( $name."_noncename" ); ?>" />
+                <?php if(!empty($helper) ) {?>
+                <br/><small><?php echo $helper ?></small>
+                <?php } ?>
             </td>
-    </tr>
-    <?php
-    if(isset($echo) && $echo == 0 ){
-          $output = ob_get_contents();
-          ob_end_clean();
-          return $output;
-        }  
-}
-
-
-/*
- * 
- * media upload
- * 
- * 
- */
-function get_meta_media_upload( $args = array(), $value = false, $echo = 1) {
-
-    extract( $args );
-    if(!isset($width)){
-       $width = 'style="width:25%;"';
+        </tr>
+        <?php
+        if(isset($echo) && $echo == 0 ){
+              $output = ob_get_contents();
+              ob_end_clean();
+              return $output;
+            }
     }
-    if(isset($echo) && $echo == 0 ){
-     ob_start();   
-   }
-    ?>
-    <tr>
+
+
+    /**
+     * Upload a file into the media library
+     * 
+     * @param array $args [width, echo, title, name, class, helper]
+     * @param string $value
+     * @param type $echo
+     * @return type
+     */
+    public function get_meta_media_upload( $args = array(), $value = false, $echo = 1) {
+
+        extract( $args );
+        if(!isset($width)){
+           $width = 'style="width:25%;"';
+        }
+        if(isset($echo) && $echo == 0 ){
+         ob_start();   
+       }
+        ?>
+        <tr>
             <th <?php echo $width ?> >
                     <label for="<?php echo $name; ?>"><?php echo $title; ?></label>
             </th>
@@ -171,9 +172,10 @@ function get_meta_media_upload( $args = array(), $value = false, $echo = 1) {
                 <table style="width:97%" class="media-upload"><tr>
                      <th><input id="<?php echo $name; ?>_button" value="Upload Media" type="button" class="button-secondary"/></th>
                      <td><input  class="<?php if(isset($class)){ echo $class; } ?>" id="<?php echo $name; ?>" size="36" name="<?php echo $name; ?>" type="text" value="<?php echo esc_html( $value, 1 ); ?>" style="width:100%"/></td>
-                    </tr></table>
-                                <script>
-                                    jQuery(document).ready(function() {
+                    </tr>
+                </table>
+                <script>
+                    jQuery(document).ready(function() {
 
                         jQuery('#<?php echo $name; ?>_button').click(function() {
                          formfield = jQuery('#<?php echo $name; ?>').attr('name');
@@ -191,30 +193,31 @@ function get_meta_media_upload( $args = array(), $value = false, $echo = 1) {
 
                         });
 
-                    </script>
+                </script>
 
-                    <input type="hidden" name="<?php echo $name; ?>_noncename" id="<?php echo $name; ?>_noncename" value="<?php echo wp_create_nonce( $name."_noncename" ); ?>" />
-                    <?php if(!empty($helper) ) {?>
-                    <br/><small><?php echo $helper ?></small>
-                    <?php } ?>
+                <input type="hidden" name="<?php echo $name; ?>_noncename" id="<?php echo $name; ?>_noncename" value="<?php echo wp_create_nonce( $name."_noncename" ); ?>" />
+                <?php if(!empty($helper) ) {?>
+                <br/><small><?php echo $helper ?></small>
+                <?php } ?>
             </td>
-    </tr>
-    <?php
-   if(isset($echo) && $echo == 0 ){
-          $output = ob_get_contents();
-          ob_end_clean();
-          return $output;
-        }  
+        </tr>
+        <?php
+       if(isset($echo) && $echo == 0 ){
+            $output = ob_get_contents();
+            ob_end_clean();
+            return $output;
+        }
 
-}
+    }
 
-/*
- * select with options
- * 
- * 
- */
-
-function get_meta_select( $args = array(), $value = false ) {
+    /**
+     * Create a select drop down.
+     * 
+     * @param array $args [width, echo, title, name, class, helper, options]
+     * @param string $value
+     * @return string
+     */
+    public function get_meta_select( $args = array(), $value = false ) {
 
         extract( $args );
         if(!isset($width)){
@@ -226,32 +229,32 @@ function get_meta_select( $args = array(), $value = false ) {
         ?>
 
         <tr>
-                <th <?php echo $width ?> >
-                        <label for="<?php echo $name; ?>"><?php echo $title; ?></label>
-                </th>
-                <td>                                
-                        <select name="<?php echo $name; ?>" id="<?php echo $name; ?>">
-                        <?php foreach ( $options as $option => $item ) : ?>
-                                <option <?php if ( htmlentities( $value, ENT_QUOTES ) == $option ){ echo ' selected="selected"';} ?> value="<?php echo ($option != 0 )?$option:'';
-                                        
-                                        ?>" >
-                                        <?php echo $item; ?>
-                                </option>
-                        <?php endforeach; ?>
-                        </select>
-                        <input type="hidden" name="<?php echo $name; ?>_noncename" id="<?php echo $name; ?>_noncename" value="<?php echo wp_create_nonce( $name."_noncename" ); ?>" />
-               <?php if(!empty($helper) ) { ?>
-                    <br/><small><?php echo $helper ?></small>
-                <?php } ?>
-                </td>
+            <th <?php echo $width ?> >
+                    <label for="<?php echo $name; ?>"><?php echo $title; ?></label>
+            </th>
+            <td>                                
+                <select name="<?php echo $name; ?>" id="<?php echo $name; ?>">
+                <?php foreach ( $options as $option => $item ) : ?>
+                        <option <?php if ( htmlentities( $value, ENT_QUOTES ) == $option ){ echo ' selected="selected"';} ?> value="<?php echo ($option != 0 )?$option:'';
+
+                                ?>" >
+                                <?php echo $item; ?>
+                        </option>
+                <?php endforeach; ?>
+                </select>
+                <input type="hidden" name="<?php echo $name; ?>_noncename" id="<?php echo $name; ?>_noncename" value="<?php echo wp_create_nonce( $name."_noncename" ); ?>" />
+           <?php if(!empty($helper) ) { ?>
+                <br/><small><?php echo $helper ?></small>
+            <?php } ?>
+            </td>
         </tr>
-  <?php
-  if(isset($echo) && $echo == 0 ){
-          $output = ob_get_contents();
-          ob_end_clean();
-          return $output;
-        }  
-}
+      <?php
+        if(isset($echo) && $echo == 0 ){
+            $output = ob_get_contents();
+            ob_end_clean();
+            return $output;
+        }
+    }
 
 
 
