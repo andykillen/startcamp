@@ -1,19 +1,20 @@
-<article>
-    <?php if(has_post_thumbnail()) : ?>
-        <a href='<?php the_permalink() ?>'>
-            <?php the_post_thumbnail('medium') ?>
+ <article class='search list'>
+<?php if(has_post_thumbnail()){ ?>    
+        <div class='search-image'>
+            <?php the_post_thumbnail('mobile');  ?>
+        </div>
+<?php } ?>
+    <div class='search-details'>
+        <h2>
+            <a href='<?php the_permalink() ?>' class='archive-title-link'>
+                <?php the_title(); ?>
+            </a>
+        </h2>
+        <?php do_action('below_title_archive'); ?>
+        <?php the_excerpt(); ?>
+        <a href='<?php the_permalink() ?>' class='archive-continue-reading-link'>
+            <?php _e('continue reading ...', 'startcamp'); ?>
         </a>
-    <?php endif; ?>
-    <h2>
-        <a href='<?php the_permalink() ?>'>
-            <?php the_title(); ?>
-        </a>
-    </h2>
-    <p>
-        <?php the_excerpt() ?>
-        <a href='<?php the_permalink() ?>'>
-            <?php _e('read more ...', 'startcamp') ?>
-        </a>
-    </p>
+        <?php do_action('below_excerpt_archive'); ?>
+    </div>
 </article>
-

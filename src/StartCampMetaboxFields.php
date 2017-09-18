@@ -104,9 +104,6 @@ class StartCampMetaboxFields {
             }
     }
 
-
-
-
     /**
      * Create a textarea.
      * 
@@ -121,8 +118,8 @@ class StartCampMetaboxFields {
            $width = 'style="width:25%;"';
         }
          if(isset($echo) && $echo == 0 ){
-              ob_start();   
-            }
+            ob_start();
+        }
         ?>
 
         <tr>
@@ -139,10 +136,10 @@ class StartCampMetaboxFields {
         </tr>
         <?php
         if(isset($echo) && $echo == 0 ){
-              $output = ob_get_contents();
-              ob_end_clean();
-              return $output;
-            }
+            $output = ob_get_contents();
+            ob_end_clean();
+            return $output;
+        }
     }
 
 
@@ -161,7 +158,7 @@ class StartCampMetaboxFields {
            $width = 'style="width:25%;"';
         }
         if(isset($echo) && $echo == 0 ){
-         ob_start();   
+         ob_start();
        }
         ?>
         <tr>
@@ -225,7 +222,7 @@ class StartCampMetaboxFields {
            $width = 'style="width:25%;"';
         }
         if(isset($echo) && $echo == 0 ){
-            ob_start();   
+            ob_start();
         }
         ?>
 
@@ -265,43 +262,42 @@ class StartCampMetaboxFields {
      * @return string
      */
     public function get_meta_checkbox( $args = array(), $value = false ) {
-            extract( $args );
-            if(!isset($width)){
-               $width = 'style="width:25%;"';
-            }
-            if(isset($echo) && $echo == 0 ){
-                ob_start();   
-            }
-            $i =1;
-            ?>
-            <tr>
-                <th <?php echo $width ?> >
-                    <?php foreach($options as $option => $item){ 
-                            if(!isset($item['imcrement'])){
-                                $imcrement = '';
-                            }
-                            else{
-                                $imcrement = $item['imcrement'];
-                            }
+        extract( $args );
+        if(!isset($width)){
+           $width = 'style="width:25%;"';
+        }
+        if(isset($echo) && $echo == 0 ){
+            ob_start();
+        }
+        $i =1;
+        ?>
+        <tr>
+            <th <?php echo $width ?> >
+                <?php foreach($options as $option => $item){ 
+                        if(!isset($item['imcrement'])){
+                            $imcrement = '';
+                        }
+                        else{
+                            $imcrement = $item['imcrement'];
+                        }
 
-                if($i < 2){ ?>
-                    <label for="<?php echo $option; ?>"><?php echo $title; ?></label>
-                </th>
-                <td>
-                <?php }
+            if($i < 2){ ?>
+                <label for="<?php echo $option; ?>"><?php echo $title; ?></label>
+            </th>
+            <td>
+            <?php } ?>
+                <input  id="<?php echo $option ?><?php echo $error_name?>" type="hidden" value="<?php echo $item['error_value'] ?>" name="<?php echo $option ?><?php echo $item['error_name'];?>">
+                <input type="hidden" id="<?php echo $option ?><?php echo $imcrement ?>" name="<?php echo $option ?><?php echo $imcrement ?>" value="no"  />
+                <input type="checkbox" id="<?php echo $option ?><?php echo $imcrement ?>" name="<?php echo $option ?><?php echo $imcrement ?>" value="yes" <?php if ( htmlentities( $item['value'], ENT_QUOTES ) == 'yes' ) echo ' checked'; ?>  />
+                <label for="<?php echo $option ?><?php echo $imcrement ?>"><?php echo $option ?></label><br/>
 
-                      ?><input  id="<?php echo $option ?><?php echo $error_name?>" type="hidden" value="<?php echo $item['error_value'] ?>" name="<?php echo $option ?><?php echo $item['error_name'];?>">
-                        <input type="hidden" id="<?php echo $option ?><?php echo $imcrement ?>" name="<?php echo $option ?><?php echo $imcrement ?>" value="no"  />
-                        <input type="checkbox" id="<?php echo $option ?><?php echo $imcrement ?>" name="<?php echo $option ?><?php echo $imcrement ?>" value="yes" <?php if ( htmlentities( $item['value'], ENT_QUOTES ) == 'yes' ) echo ' checked'; ?>  />
-                        <label for="<?php echo $option ?><?php echo $imcrement ?>"><?php echo $option ?></label><br/>
-
-                        <?php $i++; }
-                        if(!empty($helper) ) {?>
-                        <br/><small><?php echo $helper ?></small>
-                        <?php } ?>
-                </td>
-            </tr>
-            <?php
+                <?php $i++; }
+                if(!empty($helper) ) {?>
+                <br/><small><?php echo $helper ?></small>
+                <?php } ?>
+            </td>
+        </tr>
+        <?php
         if(isset($echo) && $echo == 0 ){
             $output = ob_get_contents();
             ob_end_clean();
@@ -316,18 +312,18 @@ class StartCampMetaboxFields {
      */
     public function get_divider($echo = true){
         if(isset($echo) && $echo == 0 ){
-                ob_start();   
+                ob_start();
         }
         ?>
             <tr><th style="padding-top:1em; border-bottom: solid 1px #ccc" >                            
                 </th><td style="padding-top:1em; border-bottom: solid 1px #ccc"></td></tr>
             <tr><th style="padding-top:1em;" ></th><td style="padding-top:1em;"></td></tr>
-        <?php    
+        <?php
         if(isset($echo) && $echo == 0 ){
             $output = ob_get_contents();
             ob_end_clean();
             return $output;
-        }  
+        }
     }
 
 
@@ -335,13 +331,13 @@ class StartCampMetaboxFields {
     public function get_meta_radio( $args = array(), $value = false ) {
         extract( $args );
         if(($value == false || empty($value)) && isset($default)){
-          $value = $default;                      
+          $value = $default;
         }
         if(!isset($width)){
            $width = 'style="width:25%;"';
         }
         if(isset($echo) && $echo == 0 ){
-            ob_start();   
+            ob_start();
         }
         ?>
         <tr>
@@ -375,28 +371,28 @@ class StartCampMetaboxFields {
      * @return type
      */
     public function get_hidden( $args = array(), $value) {
-         extract( $args );                    
-         if(isset($echo) && $echo == 0 ){
-             ob_start();   
-         }      
-         if(($value == false || empty($value)) && isset($default)){
-           $value = $default;
+        extract( $args );
+        if(isset($echo) && $echo == 0 ){
+            ob_start();
+        }      
+        if(($value == false || empty($value)) && isset($default)){
+          $value = $default;
 
-         }
-         ?>
-         <tr>
-                <th></th>
-                <td>                                                           
-                    <input type="hidden" id="<?php echo $name ?>" name="<?php echo $name ?>" value="<?php echo  (isset($value) ) ? $value : $default; ?>"  />                                                                                            
-                    <input type="hidden" name="<?php echo $name; ?>_noncename" id="<?php echo $name; ?>_noncename" value="<?php echo wp_create_nonce( $name."_noncename" ); ?>" /> 
-                </td>
-         </tr>
-         <?php
+        }
+        ?>
+        <tr>
+            <th></th>
+            <td>                                                           
+                <input type="hidden" id="<?php echo $name ?>" name="<?php echo $name ?>" value="<?php echo  (isset($value) ) ? $value : $default; ?>"  />                                                                                            
+                <input type="hidden" name="<?php echo $name; ?>_noncename" id="<?php echo $name; ?>_noncename" value="<?php echo wp_create_nonce( $name."_noncename" ); ?>" /> 
+            </td>
+        </tr>
+        <?php
         if(isset($echo) && $echo == 0 ){
             $output = ob_get_contents();
             ob_end_clean();
             return $output;
-        }  
+        }
     }
 
 }

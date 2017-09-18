@@ -258,20 +258,7 @@ if(!function_exists('startcamp_share_urls')) :
         return array_replace( array_flip($wantedUrls) , array_intersect_key($allShareUrls, array_flip($wantedUrls) ) );
     }
 endif;
-/**
- * TODO:
- * 1. page formats  // 50%
- 
- * 3. images & responsive
- 
- * * 6. Share FB, Twitter, Linked in. 50%
- * 7. JSON LD 
- * 8. Finish the customizer
- * 9. Hero image
- * 10. forms
- 
- * 12. Archive layout
- */
+
 if(!function_exists('startcamp_image_sizes_attr')):
     function startcamp_image_sizes_attr( $sizes, $size ) {
         $width = $size[0];
@@ -366,3 +353,16 @@ function startcamp_return_date_array(){
     }
     return $array;
 }
+
+/**
+ * TODO:
+ * 1. page formats and fields  // 50%
+ * 3. images & responsive 
+ * 6. Share FB, Twitter, Linked in. 50%
+ * 7. JSON LD 0%
+ * 8. Finish the customizer 80%
+ * 9. Hero image 20%
+ * 10. forms 30%
+ * 12. Archive layout and style 50%
+ * 13. serch form and search results. 40%
+ */

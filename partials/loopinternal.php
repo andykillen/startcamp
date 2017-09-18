@@ -12,7 +12,7 @@
     <p>
         <?php the_excerpt() ?>
         <a href='<?php the_permalink() ?>'>
-            <?php _e('read more ...', 'startcamp') ?>
+            <?php _e('continue reading ...', 'startcamp') ?>
         </a>
     </p>
 </article>
