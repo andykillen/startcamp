@@ -340,6 +340,14 @@ if(!function_exists('startcamp_map')):
     }
 endif;
 
+if(!function_exists('startcamp_event_jsonld')){
+    function startcamp_event_jsonld(){
+        $jsonld = new StartCampJsonLD();
+        $jsonld->setType('event');
+        $jsonld->buildJson();
+    }
+}
+
 
 function startcamp_return_date_array(){
     $period = new DatePeriod(
@@ -363,6 +371,7 @@ function startcamp_return_date_array(){
  * 8. Finish the customizer 80%
  * 9. Hero image 20%
  * 10. forms 30%
- * 12. Archive layout and style 50%
- * 13. serch form and search results. 40%
+ * 12. Archive layout and style 80%
+ * 13. serch form and search results. 80% //css needed
+ * 14. print css
  */

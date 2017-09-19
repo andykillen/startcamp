@@ -3,6 +3,7 @@ if ( have_posts() ) :
 while ( have_posts() ) : the_post(); ?>
 
 <article class='grid'>
+    <?php startcamp_event_jsonld() ?>
     <?php if(has_post_thumbnail()){ ?>
     <div class='row'>
         <div class='wide-col'>
