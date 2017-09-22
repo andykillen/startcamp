@@ -1,4 +1,4 @@
-![alt text](https://github.com/andykillen/startcamp/images/startcamp.png "Startcamp logo")
+![alt text](https://raw.githubusercontent.com/andykillen/startcamp/master/images/startcamp.png "Startcamp logo")
 
 # startcamp
 A WordPress starter Theme for WordCamps.
