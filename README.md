@@ -1,6 +1,5 @@
-![alt text](https://raw.githubusercontent.com/andykillen/startcamp/master/images/startcamp.png "Startcamp logo")
+![alt text](https://raw.githubusercontent.com/andykillen/startcamp/master/images/startcamp.png "StartCamp")
 
-# startcamp
 A WordPress starter Theme for WordCamps.
 
 ## Key Features
