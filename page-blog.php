@@ -13,11 +13,7 @@ if ( have_posts() ) :
         get_template_part('partials/loop');
     endwhile;
     ?><div class="post-navigation"><?php
-    if(function_exists('wp_pagenavi')){
-        wp_pagenavi();
-    } else {
-        posts_nav_link();
-    }
+    get_template_part('partials/pagination');
     ?></div><?php
 endif;
 get_footer();

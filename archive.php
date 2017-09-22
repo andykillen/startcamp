@@ -6,23 +6,19 @@
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  */
 
-get_header(); 
-
+get_header();
 
 if ( have_posts() ) :
+
     the_archive_title( '<h1 class="archive-title">', '</h1>' );
     the_archive_description( '<div class="archive-description">', '</div>' );
-    
+
     while ( have_posts() ) : the_post(); 
-    get_template_part('partials/loopinternal','lists');
+
+        get_template_part('partials/archiveloopinternal',startcamp_get_archive_type());
+    
     endwhile;
-    if(function_exists('wp_pagenavi')){
-        wp_pagenavi();
-    } else {
-        the_posts_pagination( array(
-            'prev_text' =>  '<span class="screen-reader-text">' . __( 'Previous page', 'startcamp' ) . '</span>',
-            'next_text' => '<span class="screen-reader-text">' . __( 'Next page', 'startcamp' ) . '</span>' ,
-            'before_page_number' => '<span class="meta-nav screen-reader-text">' . __( 'Page', 'startcamp' ) . ' </span>',
-        ) );
-    }
+
+    get_template_part('partials/pagination');
+
 endif;

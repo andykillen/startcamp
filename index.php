@@ -16,8 +16,10 @@ if(is_singular() || is_feed()){
     /**
      * Will load for archiveloop-TAXONOMY_NAME.php if it exists,
      * otherwise it will default back to archiveloop.php.
-     */
-    get_template_part('partials/archiveloop');
+     * 
+     * 
+     */    
+    get_template_part('partials/archiveloop', startcamp_get_archive_type());
 } else {
     /**
      * For all other loops.

@@ -14,6 +14,7 @@
         <a href='<?php the_permalink() ?>'>
             <?php _e('continue reading ...', 'startcamp') ?>
         </a>
+        
     </p>
 </article>
 

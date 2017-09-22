@@ -362,6 +362,38 @@ function startcamp_return_date_array(){
     return $array;
 }
 
+if(!function_exists('startcamp_get_archive_type')){
+    /**
+     * Returns the type of archive it is [Date or Author], or the name of the
+     * taxonomy or post type.
+     * 
+     * @return string
+     */
+    function startcamp_get_archive_type(){
+        $queried_object = get_queried_object();
+        $type = '';
+        if(!is_archive()){
+            // exit early if not an archive.
+            return $type;
+        }
+        if(is_date()){
+            $type = 'date';
+        } else {        
+            switch(get_class($queried_object)){
+                case 'WP_Term':
+                    $type = $queried_object->taxonomy;
+                    break;
+                case 'WP_User':
+                    $type = 'author';
+                    break;
+                case 'WP_Post_Type':
+                    $type = $queried_object->name;
+                    break;
+            }
+        }
+        return $type;
+    }
+}
 /**
  * TODO:
  * 1. page formats and fields  // 50%
